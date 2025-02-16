@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class inimigration1 : Migration
+    public partial class inicreate1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,19 +41,18 @@ namespace ContosoUniversity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Student",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
-                    Status = table.Column<string>(type: "TEXT", nullable: false)
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstMidName = table.Column<string>(type: "TEXT", nullable: true),
+                    EnrollmentDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Student", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +64,6 @@ namespace ContosoUniversity.Migrations
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
                     FirstMidName = table.Column<string>(type: "TEXT", nullable: true),
                     HireDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserID = table.Column<int>(type: "INTEGER", nullable: false),
                     DepartmentID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -76,34 +74,6 @@ namespace ContosoUniversity.Migrations
                         column: x => x.DepartmentID,
                         principalTable: "Department",
                         principalColumn: "DepartmentID");
-                    table.ForeignKey(
-                        name: "FK_Instructor_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Student",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    FirstMidName = table.Column<string>(type: "TEXT", nullable: true),
-                    EnrollmentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserID = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Student", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Student_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,18 +128,6 @@ namespace ContosoUniversity.Migrations
                 name: "IX_Instructor_DepartmentID",
                 table: "Instructor",
                 column: "DepartmentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Instructor_UserID",
-                table: "Instructor",
-                column: "UserID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Student_UserID",
-                table: "Student",
-                column: "UserID",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -189,9 +147,6 @@ namespace ContosoUniversity.Migrations
 
             migrationBuilder.DropTable(
                 name: "Department");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

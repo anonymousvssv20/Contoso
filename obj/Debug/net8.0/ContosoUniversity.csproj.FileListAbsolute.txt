@@ -313,3 +313,4 @@ C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\ne
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.genruntimeconfig.cache
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ref\ContosoUniversity.dll
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.sourcelink.json

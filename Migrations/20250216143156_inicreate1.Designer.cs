@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250216140604_inimigration1")]
-    partial class inimigration1
+    [Migration("20250216143156_inicreate1")]
+    partial class inicreate1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,15 +106,9 @@ namespace ContosoUniversity.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ID");
 
                     b.HasIndex("DepartmentID");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
 
                     b.ToTable("Instructor", (string)null);
                 });
@@ -134,42 +128,9 @@ namespace ContosoUniversity.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID")
-                        .IsUnique();
-
                     b.ToTable("Student", (string)null);
-                });
-
-            modelBuilder.Entity("ContosoUniversity.Models.User", b =>
-                {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserID");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Enrollment", b =>
@@ -200,25 +161,6 @@ namespace ContosoUniversity.Migrations
                     b.HasOne("ContosoUniversity.Models.Department", null)
                         .WithMany("instructors")
                         .HasForeignKey("DepartmentID");
-
-                    b.HasOne("ContosoUniversity.Models.User", "User")
-                        .WithOne()
-                        .HasForeignKey("ContosoUniversity.Models.Instructor", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
-                {
-                    b.HasOne("ContosoUniversity.Models.User", "User")
-                        .WithOne()
-                        .HasForeignKey("ContosoUniversity.Models.Student", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>

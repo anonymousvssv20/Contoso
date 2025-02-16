@@ -7,9 +7,6 @@
         public string? FirstMidName { get; set; }
         public DateTime EnrollmentDate { get; set; }
 
-        public int UserID { get; set; }
-        public User User { get; set; }
-
         public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

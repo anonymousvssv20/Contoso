@@ -16,7 +16,6 @@ namespace ContosoUniversity.Data
             : base(options)
         {
         }
-        public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -30,8 +29,7 @@ namespace ContosoUniversity.Data
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Instructor>().ToTable("Instructor");
             modelBuilder.Entity<Department>().ToTable("Department");
-            modelBuilder.Entity<Student>().HasOne(s => s.User).WithOne().HasForeignKey<Student>(s => s.UserID);
-            modelBuilder.Entity<Instructor>().HasOne(i => i.User).WithOne().HasForeignKey<Instructor>(i => i.UserID);
+            
         }
         //public DbSet<ContosoUniversity.Models.Student> Student { get; set; } = default!;
     }

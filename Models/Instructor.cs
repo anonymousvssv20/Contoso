@@ -9,9 +9,6 @@ namespace ContosoUniversity.Models
         public string? FirstMidName { get; set; }
         public DateTime HireDate { get; set; }
 
-        public int UserID { get; set; }
-        public User User { get; set; }
-
         // Removed the ICollection<Instructor> - potential infinite loop
         // If you need to represent the instructors related to this instructor,
         // you would likely do it through a different entity (e.g., DepartmentAssignment)
