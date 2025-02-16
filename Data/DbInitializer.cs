@@ -1,0 +1,89 @@
+﻿using ContosoUniversity.Models;
+using ContosoUniversity.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
+
+namespace ContosoUniversity.Data
+{
+    public static class DbInitializer
+    {
+        public static void Initialize(SchoolContext context)
+        {
+            if (context.Students.Any())
+            {
+                return;
+            }
+
+            var students = new Student[]
+            {
+                new Student{FirstMidName="Carson", LastName="Alexander", EnrollmentDate=DateTime.Parse("2019-09-01")},
+                new Student{FirstMidName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2017-09-01")},
+                new Student{FirstMidName="Arturo",LastName="Anand",EnrollmentDate=DateTime.Parse("2018-09-01")},
+                new Student{FirstMidName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.Parse("2017-09-01")},
+                new Student{FirstMidName="Yan",LastName="Li",EnrollmentDate=DateTime.Parse("2017-09-01")},
+                new Student{FirstMidName="Peggy",LastName="Justice",EnrollmentDate=DateTime.Parse("2016-09-01")},
+                new Student{FirstMidName="Laura",LastName="Norman",EnrollmentDate=DateTime.Parse("2018-09-01")},
+                new Student{FirstMidName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.Parse("2019-09-01")}
+            };
+
+            context.Students.AddRange(students);
+            context.SaveChanges();
+
+            var courses = new Course[]
+            {
+                new Course{CourseID=1050,Title="Chemistry",Credits=3},
+                new Course{CourseID=4022,Title="Microeconomics",Credits=3},
+                new Course{CourseID=4041,Title="Macroeconomics",Credits=3},
+                new Course{CourseID=1045,Title="Calculus",Credits=4},
+                new Course{CourseID=3141,Title="Trigonometry",Credits=4},
+                new Course{CourseID=2021,Title="Composition",Credits=3},
+                new Course{CourseID=2042,Title="Literature",Credits=4}
+            };
+
+            context.Courses.AddRange(courses);
+            context.SaveChanges();
+
+            var enrollments = new Enrollment[]
+            {
+                new Enrollment{StudentID=1,CourseID=1050,Grade=Grade.A},
+                new Enrollment{StudentID=1,CourseID=4022,Grade=Grade.C},
+                new Enrollment{StudentID=1,CourseID=4041,Grade=Grade.B},
+                new Enrollment{StudentID=2,CourseID=1045,Grade=Grade.B},
+                new Enrollment{StudentID=2,CourseID=3141,Grade=Grade.F},
+                new Enrollment{StudentID=2,CourseID=2021,Grade=Grade.F},
+                new Enrollment{StudentID=3,CourseID=1050},
+                new Enrollment{StudentID=4,CourseID=1050},
+                new Enrollment{StudentID=4,CourseID=4022,Grade=Grade.F},
+                new Enrollment{StudentID=5,CourseID=4041,Grade=Grade.C},
+                new Enrollment{StudentID=6,CourseID=1045},
+                new Enrollment{StudentID=7,CourseID=3141,Grade=Grade.A},
+            };
+
+            context.Enrollments.AddRange(enrollments);
+            context.SaveChanges();
+
+            var Instructor = new Instructor[]
+            {
+                new Instructor{FirstMidName="Nicholas", LastName="Stranley", HireDate=DateTime.Parse("2010-09-01")},
+                new Instructor{FirstMidName="James", LastName="Downey", HireDate=DateTime.Parse("2010-09-01")},
+                new Instructor{FirstMidName="Natasha", LastName="Romanov", HireDate=DateTime.Parse("2010-09-01")},
+                new Instructor{FirstMidName="Maya", LastName="Zelensky", HireDate=DateTime.Parse("2010-09-01")},
+                new Instructor{FirstMidName="Jackson", LastName="Romanov", HireDate=DateTime.Parse("2010-09-01")},
+            };
+
+            context.Instructor.AddRange(Instructor);
+            context.SaveChanges();
+
+            var Department = new Department[]
+            {
+                new Department{Name="Headmaster", Budget=10000, AdministratorID=1, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Council", Budget=8000, AdministratorID=2, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Teachers", Budget=6000, AdministratorID=3, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Helpers", Budget=6000, AdministratorID=3, StartDate=DateTime.Parse("1990-01-01")},
+            };
+
+            context.Departments.AddRange(Department);
+            context.SaveChanges();
+        }
+    }
+}
