@@ -31,6 +31,7 @@ namespace ContosoUniversity.Data
             modelBuilder.Entity<Department>().ToTable("Department");
             
         }
+        public DbSet<ContosoUniversity.Models.StudentVM> StudentVM { get; set; } = default!;
         //public DbSet<ContosoUniversity.Models.Student> Student { get; set; } = default!;
     }
 }

@@ -27,22 +27,19 @@ namespace ContosoUniversity.Pages.Students
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            var emptyStudent = new Student();
+
+            if(await TryUpdateModelAsync<Student>(
+                emptyStudent,
+                "student",
+                s => s.FirstMidName, s=> s.LastName, s=> s.EnrollmentDate))
             {
-                return Page();
+                _context.Students.Add(emptyStudent);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Indexx");
             }
 
-            try
-            {
-                _context.Entry(Student).State = EntityState.Added; // Ensure it's added
-                await _context.SaveChangesAsync(); // Save to DB
-                return RedirectToPage("./Index");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Error saving data: " + ex.Message);
-                return Page();
-            }
+            return Page();
         }
     }
 }

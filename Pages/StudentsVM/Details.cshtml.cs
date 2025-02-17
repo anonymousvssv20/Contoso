@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ContosoUniversity.Models;
 using ContosoUniversity.Data;
+using ContosoUniversity.Models;
 
-
-namespace ContosoUniversity.Pages.Students
+namespace ContosoUniversity.Pages.StudentsVM
 {
     public class DetailsModel : PageModel
     {
@@ -20,7 +19,7 @@ namespace ContosoUniversity.Pages.Students
             _context = context;
         }
 
-        public Student Student { get; set; } = default!;
+        public StudentVM StudentVM { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,20 +28,14 @@ namespace ContosoUniversity.Pages.Students
                 return NotFound();
             }
 
-            Student = await _context.Students
-                .Include(s => s.Enrollments)
-                .ThenInclude(e => e.Course)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            var student = await _context.Students.FirstOrDefaultAsync(m => m.ID == id);
-            if (student == null)
+            var studentvm = await _context.StudentVM.FirstOrDefaultAsync(m => m.ID == id);
+            if (studentvm == null)
             {
                 return NotFound();
             }
             else
             {
-                Student = student;
+                StudentVM = studentvm;
             }
             return Page();
         }
