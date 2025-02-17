@@ -9,5 +9,7 @@ namespace ContosoUniversity.Models.SchoolViewModels
         public DateTime? EnrollmentDate { get; set; }
 
         public int StudentCount { get; set; }
+
+        public int InstructorCount { get; set; }
     }
 }
