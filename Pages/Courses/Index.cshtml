@@ -2,41 +2,70 @@
 @model ContosoUniversity.Pages.Courses.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Courses";
 }
 
-<h1>Index</h1>
+<h2>Courses</h2>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-group">
+        <label for="searchTitle">Title:</label>
+        <input type="text" id="searchTitle" name="SearchTitle" value="@Model.CurrentTitleFilter" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="searchCredits">Credits:</label>
+        <input type="number" id="searchCredits" name="SearchCredits" value="@Model.CurrentCreditsFilter" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a asp-page="./Index" class="btn btn-secondary">Reset</a>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Course[0].Title)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort" asp-route-currentTitleFilter="@Model.CurrentTitleFilter" asp-route-currentCreditsFilter="@Model.CurrentCreditsFilter">
+                    @Html.DisplayNameFor(model => model.Courses[0].Title)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Course[0].Credits)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CreditsSort" asp-route-currentTitleFilter="@Model.CurrentTitleFilter" asp-route-currentCreditsFilter="@Model.CurrentCreditsFilter">
+                    @Html.DisplayNameFor(model => model.Courses[0].Credits)
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Course) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Credits)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Courses)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Credits)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Courses.PageIndex - 1)"
+   asp-route-currentTitleFilter="@Model.CurrentTitleFilter"
+   class="btn btn-primary @(Model.PrevDisabled ? "disabled" : "")">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Courses.PageIndex + 1)"
+   asp-route-currentTitleFilter="@Model.CurrentTitleFilter"
+   class="btn btn-primary @(Model.NextDisabled ? "disabled" : "")">
+    Next
+</a>
