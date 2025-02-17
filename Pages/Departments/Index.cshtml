@@ -2,53 +2,88 @@
 @model ContosoUniversity.Pages.Departments.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Departments";
 }
 
-<h1>Index</h1>
+<h1>Departments</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name, budget, or start date:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Department[0].Name)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
+                asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Departments[0].Name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department[0].Budget)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.BudgetSort"
+                asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Departments[0].Budget)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department[0].AdministratorID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department[0].StartDate)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Departments[0].StartDate)
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Department) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Budget)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdministratorID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.DepartmentID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.DepartmentID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.DepartmentID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Departments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Budget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.DepartmentID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.DepartmentID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.DepartmentID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Departments.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Departments.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Departments.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Departments.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

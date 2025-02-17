@@ -7,23 +7,81 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using ContosoUniversity.Helpers;
 
 namespace ContosoUniversity.Pages.Departments
 {
     public class IndexModel : PageModel
     {
-        private readonly ContosoUniversity.Data.SchoolContext _context;
+        private readonly SchoolContext _context;
+        private readonly IConfiguration _configuration;
 
-        public IndexModel(ContosoUniversity.Data.SchoolContext context)
+        public IndexModel(SchoolContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
-        public IList<Department> Department { get;set; } = default!;
+        public string NameSort { get; set; }
+        public string BudgetSort { get; set; }
+        public string DateSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync()
+        public PaginatedList<Department> Departments { get; set; } = default!;
+
+        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex)
         {
-            Department = await _context.Departments.ToListAsync();
+            CurrentSort = sortOrder;
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            BudgetSort = sortOrder == "Budget" ? "budget_desc" : "Budget";
+            DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            CurrentFilter = searchString;
+
+            IQueryable<Department> departmentsIQ = from d in _context.Departments
+                                                   select d;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                departmentsIQ = departmentsIQ.Where(d => d.Name.Contains(searchString)
+                    || d.Budget.ToString().Contains(searchString)
+                    || d.StartDate.ToString().Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    departmentsIQ = departmentsIQ.OrderByDescending(d => d.Name);
+                    break;
+                case "Budget":
+                    departmentsIQ = departmentsIQ.OrderBy(d => d.Budget);
+                    break;
+                case "budget_desc":
+                    departmentsIQ = departmentsIQ.OrderByDescending(d => d.Budget);
+                    break;
+                case "Date":
+                    departmentsIQ = departmentsIQ.OrderBy(d => d.StartDate);
+                    break;
+                case "date_desc":
+                    departmentsIQ = departmentsIQ.OrderByDescending(d => d.StartDate);
+                    break;
+                default:
+                    departmentsIQ = departmentsIQ.OrderBy(d => d.Name);
+                    break;
+            }
+
+            int pageSize = _configuration.GetValue<int>("PageSize", 10);
+            Departments = await PaginatedList<Department>.CreateAsync(departmentsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }
