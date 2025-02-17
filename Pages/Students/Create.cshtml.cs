@@ -36,7 +36,7 @@ namespace ContosoUniversity.Pages.Students
             {
                 _context.Students.Add(emptyStudent);
                 await _context.SaveChangesAsync();
-                return RedirectToPage("./Indexx");
+                return RedirectToPage("./Index");
             }
 
             return Page();
