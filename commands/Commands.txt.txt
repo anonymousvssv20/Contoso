@@ -1,0 +1,219 @@
+
+### **Top 10 Most Used Commands**
+1. **dotnet build** – Build the project
+2. **dotnet run** – Run the project
+3. **dotnet add package <PackageName>** – Add a package to the project
+4. **dotnet restore** – Restore project dependencies
+5. **dotnet test** – Run tests
+6. **git status** – Check the status of the working directory
+7. **git add <file>** – Add changes to the staging area
+8. **git commit -m "message"** – Commit changes with a message
+9. **git push** – Push changes to remote repository
+10. **git pull** – Pull changes from remote repository
+
+---
+
+### **ASP.NET Core Commands (for the normal terminal console)**
+
+- **Create a new project**
+  - `dotnet new console -n ProjectName` – Create a new console app
+  - `dotnet new mvc -n ProjectName` – Create a new MVC app
+  - `dotnet new webapi -n ProjectName` – Create a new Web API app
+  - `dotnet new blazor -n ProjectName` – Create a new Blazor app
+
+- **Build and Run**
+  - `dotnet build` – Build the project
+  - `dotnet run` – Run the project
+  - `dotnet publish` – Publish the project
+
+- **Add and remove packages**
+  - `dotnet add package <PackageName>` – Add a package to the project
+  - `dotnet remove package <PackageName>` – Remove a package from the project
+
+- **Update packages**
+  - `dotnet restore` – Restore project dependencies
+  - `dotnet update` – Update the packages
+
+- **Testing**
+  - `dotnet test` – Run tests
+
+---
+
+### **ASP.NET Core Commands (Package Manager Console)**
+
+- **Install NuGet packages**
+  - `Install-Package <PackageName>` – Install a NuGet package
+  - `Update-Package <PackageName>` – Update a NuGet package
+
+- **Build and Publish**
+  - `Build` – Build the project in Package Manager Console
+  - `Publish` – Publish the project in Package Manager Console
+
+- **Restore packages**
+  - `Restore` – Restore the packages
+
+---
+
+### **GitHub Commands (Normal Terminal Console)**
+
+- **Git repository initialization**
+  - `git init` – Initialize a new Git repository
+  - `git clone <RepositoryURL>` – Clone a repository
+
+- **Git commands for version control**
+  - `git status` – Check status of the working directory
+  - `git add <file>` – Add changes to staging area
+  - `git commit -m "message"` – Commit changes with a message
+  - `git push` – Push changes to remote repository
+  - `git pull` – Pull changes from remote repository
+  - `git branch` – List all branches
+  - `git checkout <branchName>` – Switch to a branch
+  - `git merge <branchName>` – Merge a branch into the current branch
+
+- **Git Commands for Working with Remotes**
+  - `git remote add origin <RemoteURL>` – Add a new remote repository
+  - `git remote -v` – View remote repository URLs
+  - `git push -u origin <branchName>` – Push changes to a branch
+
+- **GitHub Authentication (for pushing changes)**
+  - `git config --global user.name "Your Name"` – Set Git username globally
+  - `git config --global user.email "youremail@example.com"` – Set Git email globally
+
+- **Git Branching**
+  - `git branch <branchName>` – Create a new branch
+  - `git checkout -b <branchName>` – Create and switch to a new branch
+
+- **Git Tags**
+  - `git tag <tagName>` – Create a new tag
+  - `git push origin <tagName>` – Push a tag to remote
+
+- **Git Log**
+  - `git log` – Show commit history
+
+- **Git Ignore**
+  - `echo ".idea/" >> .gitignore` – Ignore the .idea directory in Git
+
+
+# Developer PowerShell Commands
+## List of Developer PowerShell Commands
+
+1. `Get-Command` - Lists all cmdlets, functions, workflows, aliases installed on the system.
+2. `Set-ExecutionPolicy` - Changes the user preference for the PowerShell script execution policy.
+3. `Get-Help` - Displays help information about cmdlets, functions, scripts, etc.
+4. `Get-Process` - Retrieves a list of the processes that are running on the local machine.
+5. `Stop-Process` - Stops a running process on the system.
+6. `Start-Process` - Starts one or more processes on the local computer.
+7. `Get-Service` - Retrieves the status of services on the local computer.
+8. `Start-Service` - Starts a service on the local computer.
+9. `Stop-Service` - Stops a service on the local computer.
+10. `Get-EventLog` - Gets events in the event log on the local computer.
+
+# Package Manager Console Commands
+## List of Package Manager Console Commands
+
+1. `Get-Package` - Retrieves installed packages.
+2. `Install-Package` - Installs a NuGet package.
+3. `Update-Package` - Updates a NuGet package.
+4. `Uninstall-Package` - Uninstalls a NuGet package.
+5. `Find-Package` - Finds NuGet packages from a registered source.
+6. `Restore-Package` - Restores all packages in the project.
+7. `Get-Help` - Provides information on Package Manager Console commands.
+8. `Add-Package` - Adds a NuGet package to the project.
+9. `Get-PackageSource` - Retrieves a list of package sources.
+10. `Set-PackageSource` - Modifies a package source configuration.
+
+# GitHub Commands
+## GitHub Git Commands
+1. `git init` - Initializes a new Git repository.
+2. `git clone` - Clones an existing repository from a remote server.
+3. `git status` - Displays the status of the working directory and staging area.
+4. `git add` - Adds files to the staging area.
+5. `git commit` - Commits the staged changes to the local repository.
+6. `git push` - Pushes commits to a remote repository.
+7. `git pull` - Fetches and merges changes from a remote repository.
+8. `git branch` - Lists, creates, or deletes branches.
+9. `git merge` - Merges changes from different branches.
+10. `git log` - Displays the commit history.
+11. `git diff` - Shows the differences between commits, branches, and files.
+
+
+# ASP.NET Core Commands (for the normal terminal console)
+
+# Create a new project
+dotnet new console -n ProjectName           # Create a new console app
+dotnet new mvc -n ProjectName               # Create a new MVC app
+dotnet new webapi -n ProjectName            # Create a new Web API app
+dotnet new blazor -n ProjectName            # Create a new Blazor app
+
+# Build and Run
+dotnet build                               # Build the project
+dotnet run                                 # Run the project
+dotnet publish                             # Publish the project
+
+# Add and remove packages
+dotnet add package <PackageName>           # Add a package to the project
+dotnet remove package <PackageName>        # Remove a package from the project
+
+# Update packages
+dotnet restore                             # Restore project dependencies
+dotnet update                              # Update the packages
+
+# Testing
+dotnet test                                # Run tests
+
+# ASP.NET Core Commands (Package Manager Console)
+
+# Install NuGet packages
+Install-Package <PackageName>              # Install a NuGet package
+Update-Package <PackageName>               # Update a NuGet package
+
+# Build and Publish
+Build                                     # Build the project in Package Manager Console
+Publish                                   # Publish the project in Package Manager Console
+
+# Restore packages
+Restore                                   # Restore the packages
+
+# GitHub Commands (Normal Terminal Console)
+
+# Git repository initialization
+git init                                   # Initialize a new Git repository
+git clone <RepositoryURL>                  # Clone a repository
+
+# Git commands for version control
+git status                                 # Check status of the working directory
+git add <file>                             # Add changes to staging area
+git commit -m "message"                    # Commit changes with a message
+git push                                   # Push changes to remote repository
+git pull                                   # Pull changes from remote repository
+git branch                                 # List all branches
+git checkout <branchName>                  # Switch to a branch
+git merge <branchName>                     # Merge a branch into the current branch
+
+# Git Commands for Working with Remotes
+git remote add origin <RemoteURL>          # Add a new remote repository
+git remote -v                              # View remote repository URLs
+git push -u origin <branchName>            # Push changes to a branch
+
+# GitHub Authentication (for pushing changes)
+git config --global user.name "Your Name"  # Set Git username globally
+git config --global user.email "youremail@example.com" # Set Git email globally
+
+# Git Branching
+git branch <branchName>                    # Create a new branch
+git checkout -b <branchName>               # Create and switch to a new branch
+
+# Git Tags
+git tag <tagName>                          # Create a new tag
+git push origin <tagName>                  # Push a tag to remote
+
+# Git Log
+git log                                    # Show commit history
+
+# Git Ignore
+echo ".idea/" >> .gitignore                # Ignore the .idea directory in Git
+
+
+# Copyright & Trademark
+© 2025 Nejc Sever Mihelič. All rights reserved.
+Trademark: "Nejc Sever Mihelič" is a trademark of Nejc Sever Mihelič.
