@@ -56,7 +56,7 @@ namespace ContosoUniversity.Pages.Courses
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CourseExists(Course.CourseID))
+                if (!CourseExists((int)Course.CourseID))
                 {
                     return NotFound();
                 }

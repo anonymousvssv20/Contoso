@@ -294,6 +294,7 @@ C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\ne
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.RazorAssemblyInfo.cache
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.RazorAssemblyInfo.cs
+C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.sourcelink.json
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\scopedcss\bundle\ContosoUniversity.styles.css
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\scopedcss\projectbundle\ContosoUniversity.bundle.scp.css
@@ -313,4 +314,3 @@ C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\ne
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.genruntimeconfig.cache
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ref\ContosoUniversity.dll
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.sourcelink.json

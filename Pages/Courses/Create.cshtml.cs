@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ContosoUniversity.Pages.Courses
 {
@@ -21,6 +22,8 @@ namespace ContosoUniversity.Pages.Courses
 
         public IActionResult OnGet()
         {
+            Course = new Course();
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
             return Page();
         }
 
@@ -32,13 +35,23 @@ namespace ContosoUniversity.Pages.Courses
         {
             if (!ModelState.IsValid)
             {
+                ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
                 return Page();
             }
 
-            _context.Courses.Add(Course);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Courses.Add(Course);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Error saving data: {ex.Message}");
+                ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
+                return Page();
+            }
         }
+
     }
 }

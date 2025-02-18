@@ -76,10 +76,10 @@ namespace ContosoUniversity.Data
 
             var Department = new Department[]
             {
-                new Department{Name="Headmaster", Budget=10000, AdministratorID=1, StartDate=DateTime.Parse("1990-01-01")},
-                new Department{Name="Council", Budget=8000, AdministratorID=2, StartDate=DateTime.Parse("1990-01-01")},
-                new Department{Name="Teachers", Budget=6000, AdministratorID=3, StartDate=DateTime.Parse("1990-01-01")},
-                new Department{Name="Helpers", Budget=6000, AdministratorID=3, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Headmaster", Budget=10000, AdministratorID =1, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Council", Budget=8000, AdministratorID =2, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Teachers", Budget=6000, AdministratorID =3, StartDate=DateTime.Parse("1990-01-01")},
+                new Department{Name="Helpers", Budget=6000, AdministratorID =3, StartDate=DateTime.Parse("1990-01-01")},
             };
 
             context.Departments.AddRange(Department);
