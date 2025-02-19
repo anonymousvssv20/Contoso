@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class migration_1 : Migration
+    public partial class migration_initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CourseVM",
+                columns: table => new
+                {
+                    CoursevmID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartmentName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseVM", x => x.CoursevmID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Department",
                 columns: table => new
@@ -210,6 +225,9 @@ namespace ContosoUniversity.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CourseInstructor");
+
+            migrationBuilder.DropTable(
+                name: "CourseVM");
 
             migrationBuilder.DropTable(
                 name: "Enrollment");

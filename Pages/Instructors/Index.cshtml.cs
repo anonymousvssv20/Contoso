@@ -10,6 +10,7 @@ using ContosoUniversity.Data;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using ContosoUniversity.Helpers;
+using ContosoUniversity.Models.SchoolViewModels;
 
 namespace ContosoUniversity.Pages.Instructors
 {
@@ -31,7 +32,11 @@ namespace ContosoUniversity.Pages.Instructors
 
         public PaginatedList<Instructor> Instructors { get; set; }
 
-        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex)
+        public InstructorIndexData InstructorData { get; set; }
+        public int InstructorID { get; set; }
+        public int CourseID { get; set; }
+
+        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex, int? id, int? courseID)
         {
             CurrentSort = sortOrder;
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -74,6 +79,32 @@ namespace ContosoUniversity.Pages.Instructors
             var pageSize = Configuration.GetValue("PageSize", 4);
             Instructors = await PaginatedList<Instructor>.CreateAsync(
                 instructorIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+
+            InstructorData = new InstructorIndexData();
+            InstructorData.Instructors = await _context.Instructor
+                .Include(i => i.OfficeAssignment)
+                .Include(i => i.Courses)
+                .ThenInclude(c => c.Department)
+                .OrderBy(i => i.LastName)
+                .ToListAsync();
+
+            if(id != null)
+            {
+                InstructorID = id.Value;
+                Instructor instructor = InstructorData.Instructors
+                    .Where(i => i.ID == id.Value).Single();
+                InstructorData.Course = instructor.Courses;
+            }
+
+            if (courseID != null)
+            {
+                CourseID = courseID.Value;
+                IEnumerable<Enrollment> enrollments = await _context.Enrollments
+                    .Where(x => x.CourseID == CourseID)
+                    .Include(i => i.Student)
+                    .ToListAsync();
+                InstructorData.Enrollments = enrollments;
+            }
         }
     }
 }

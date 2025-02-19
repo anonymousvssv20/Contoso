@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250218184823_migration_1")]
-    partial class migration_1
+    [Migration("20250219132918_upadted_office_asignment")]
+    partial class upadted_office_asignment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,26 @@ namespace ContosoUniversity.Migrations
                     b.HasIndex("DepartmentID");
 
                     b.ToTable("Course", (string)null);
+                });
+
+            modelBuilder.Entity("ContosoUniversity.Models.CourseVM", b =>
+                {
+                    b.Property<int>("CoursevmID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CoursevmID");
+
+                    b.ToTable("CourseVM", (string)null);
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Department", b =>
@@ -131,7 +151,6 @@ namespace ContosoUniversity.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
@@ -282,8 +301,7 @@ namespace ContosoUniversity.Migrations
 
             modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
                 {
-                    b.Navigation("OfficeAssignment")
-                        .IsRequired();
+                    b.Navigation("OfficeAssignment");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Student", b =>

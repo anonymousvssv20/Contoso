@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model ContosoUniversity.Pages.Instructors.IndexModel
 
 @{
@@ -59,12 +59,57 @@
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a> |
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@if (Model.InstructorData?.Course != null)
+{
+    <h3>Courses Taught by Selected Instructor</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Department</th>
+        </tr>
+
+        @foreach (var item in Model.InstructorData.Course)
+        {
+            string selectedRow = item.CourseID == Model.CourseID ? "table-success" : "";
+            <tr class="@selectedRow">
+                <td>
+                    <a asp-page="./Index" asp-route-courseID="@item.CourseID">Select</a>
+                </td>
+                <td>@item.CourseID</td>
+                <td>@item.Title</td>
+                <td>@item.Department.Name</td>
+            </tr>
+        }
+    </table>
+}
+
+@if (Model.InstructorData?.Enrollments != null)
+{
+    <h3>Students Enrolled in Selected Course</h3>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Grade</th>
+        </tr>
+        @foreach (var item in Model.InstructorData.Enrollments)
+        {
+            <tr>
+                <td>@item.Student.FullName</td>
+                <td>@Html.DisplayFor(modelItem => item.Grade)</td>
+            </tr>
+        }
+    </table>
+}
 
 @{
     var prevDisabled = !Model.Instructors.HasPreviousPage ? "disabled" : "";

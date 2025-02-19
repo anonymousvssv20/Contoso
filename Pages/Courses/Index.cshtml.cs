@@ -33,6 +33,7 @@ namespace ContosoUniversity.Pages.Courses
         public bool PrevDisabled { get; set; }
         public bool NextDisabled { get; set; }
 
+        public IList<Course> Course { get; set; } // just incase so it doesn't break sum
         public async Task OnGetAsync(
             string sortOrder,
             string currentTitleFilter,
@@ -94,6 +95,9 @@ namespace ContosoUniversity.Pages.Courses
             // Determine if Previous and Next buttons should be disabled
             PrevDisabled = !Courses.HasPreviousPage;
             NextDisabled = !Courses.HasNextPage;
+
+            Course = await _context.Courses.Include(c => c.Department).AsNoTracking().ToListAsync();
+
         }
     }
 }

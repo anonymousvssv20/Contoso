@@ -21,8 +21,8 @@ namespace ContosoUniversity.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Instructor> Instructor { get; set; } 
         public DbSet<Department> Departments { get; set; }
-
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
+        public DbSet<CourseVM> CourseVM { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,7 @@ namespace ContosoUniversity.Data
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Instructor>().ToTable("Instructor");
             modelBuilder.Entity<Department>().ToTable("Department");
+            modelBuilder.Entity<CourseVM>().ToTable("CourseVM");
         }
         public DbSet<ContosoUniversity.Models.StudentVM> StudentVM { get; set; } = default!;
         //public DbSet<ContosoUniversity.Models.Student> Student { get; set; } = default!;
