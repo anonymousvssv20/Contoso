@@ -28,14 +28,16 @@
     <thead>
         <tr>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort" asp-route-currentTitleFilter="@Model.CurrentTitleFilter" asp-route-currentCreditsFilter="@Model.CurrentCreditsFilter">
-                    @Html.DisplayNameFor(model => model.Courses[0].Title)
-                </a>
+                @Html.DisplayNameFor(model => model.Courses[0].CourseID)
             </th>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.CreditsSort" asp-route-currentTitleFilter="@Model.CurrentTitleFilter" asp-route-currentCreditsFilter="@Model.CurrentCreditsFilter">
-                    @Html.DisplayNameFor(model => model.Courses[0].Credits)
-                </a>
+                @Html.DisplayNameFor(model => model.Courses[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Courses[0].Department)
             </th>
             <th></th>
         </tr>
@@ -44,8 +46,18 @@
         @foreach (var item in Model.Courses)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                <td>@Html.DisplayFor(modelItem => item.Credits)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |

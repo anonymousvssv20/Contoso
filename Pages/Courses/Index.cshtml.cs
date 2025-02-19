@@ -28,14 +28,20 @@ namespace ContosoUniversity.Pages.Courses
         public string CurrentCreditsFilter { get; set; }
         public string CurrentSort { get; set; }
 
-
         public PaginatedList<Course> Courses { get; set; }
 
         public bool PrevDisabled { get; set; }
         public bool NextDisabled { get; set; }
 
-        public async Task OnGetAsync(string sortOrder, string currentTitleFilter, string currentCreditsFilter, string searchTitle, int? searchCredits, int? pageIndex)
+        public async Task OnGetAsync(
+            string sortOrder,
+            string currentTitleFilter,
+            string currentCreditsFilter,
+            string searchTitle,
+            int? searchCredits,
+            int? pageIndex)
         {
+            // Pagination, sorting, and filtering logic
             CurrentSort = sortOrder;
             TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             CreditsSort = sortOrder == "Credits" ? "credits_desc" : "Credits";
@@ -53,7 +59,7 @@ namespace ContosoUniversity.Pages.Courses
             CurrentTitleFilter = searchTitle;
             CurrentCreditsFilter = searchCredits?.ToString();
 
-            IQueryable<Course> coursesIQ = _context.Courses.AsQueryable();
+            IQueryable<Course> coursesIQ = _context.Courses.Include(c => c.Department).AsQueryable();
 
             if (!String.IsNullOrEmpty(searchTitle))
             {
