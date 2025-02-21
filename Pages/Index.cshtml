@@ -4,39 +4,94 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="row mb-auto">
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 mb-4 ">
-                <p class="card-text">
-                    Contoso University is a sample application that
-                    demonstrates how to use Entity Framework Core in an
-                    ASP.NET Core Razor Pages web app.
-                </p>
+<style>
+    body {
+        background-color: #EFE9D5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* ... (rest of your existing CSS) ... */
+
+    /* Improved Dropdown Styles for Visibility (Always Visible) */
+    .dropdown-toggle {
+        color: #EFE9D5 !important; /* White text for dropdown button */
+        background-color: #27445D; /* Dark blue-green background */
+        border: none;
+        padding: 8px 16px;
+        font-weight: 500;
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+    }
+
+        .dropdown-toggle:hover {
+            color: #EFE9D5 !important; /* White text on hover */
+            background-color: #497D74; /* Muted green on hover */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+        }
+
+    .dropdown-menu {
+        background-color: #EFE9D5; /* Match body background */
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .dropdown-item {
+        color: #27445D; /* Dark text for dropdown items */
+        padding: 10px 16px;
+        transition: background-color 0.2s ease;
+    }
+
+        .dropdown-item:hover {
+            background-color: #71BBB2; /* Light blue-green on hover */
+            color: #EFE9D5; /* White text on hover */
+        }
+
+    /* ... (rest of your existing CSS) ... */
+</style>
+
+<div class="container mt-5">
+    <div class="row mb-auto">
+        <div class="col-md-4">
+            <div class="row no-gutters mb-4">
+                <div class="col p-4 mb-4 card">
+                    <div class="card-header">
+                        <h5>Contoso University</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"></p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column position-static">
-                <p class="card-text mb-auto">
-                    You can build the application by following the steps in a series of tutorials.
-                </p>
-                <p>
-                    @*                    <a href="https://docs.microsoft.com/aspnet/core/data/ef-rp/intro" class="stretched-link">See the tutorial</a>
-*@                </p>
+        <div class="col-md-4">
+            <div class="row no-gutters mb-4">
+                <div class="col p-4 d-flex flex-column position-static card">
+                    <div class="card-header">
+                        <h5>Build Your Application</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text mb-auto">
+                            You can build the application by following the steps in a series of tutorials.
+                        </p>
+                        <p></p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column">
-                <p class="card-text mb-auto">
-                    You can download the completed project from GitHub.
-                </p>
-                <p>
-                    @*                    <a href="https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/data/ef-rp/intro/samples" class="stretched-link">See project source code</a>
-*@                </p>
+        <div class="col-md-4">
+            <div class="row no-gutters mb-4">
+                <div class="col p-4 d-flex flex-column card">
+                    <div class="card-header">
+                        <h5>Download the Project</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text mb-auto">
+                            You can download the completed project from GitHub.
+                        </p>
+                        <p></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

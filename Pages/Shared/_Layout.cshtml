@@ -3,15 +3,93 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Contoso University</title>
+    <title>@ViewData["Title"] - Contoso</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ContosoUniversity.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #EFE9D5; /* Light off-white background color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        header {
+            background-color: #27445D;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a small box shadow */
+            color: #EFE9D5;
+        }
+
+        .navbar-brand {
+            color: #27445D; /* Dark text for brand */
+        }
+
+        .navbar-nav .nav-link {
+            color: #27445D; /* Dark text for nav links */
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #497D74; /* Muted green on hover */
+            }
+
+        .navbar-toggler-icon {
+            background-color: #497D74; /* Muted green toggle icon */
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            background-color: #EFE9D5; /* Match body background */
+        }
+
+        .dropdown-item {
+            color: #27445D; /* Dark text for dropdown items */
+        }
+
+            .dropdown-item:hover {
+                color: #497D74; /* Muted green on hover */
+                background-color: #71BBB2; /* Light blue-green on hover */
+            }
+
+        footer {
+            background-color: #27445D; /* Keep the dark footer */
+            color: #EFE9D5; /* Light off-white color for footer text */
+        }
+
+            footer a {
+                color: #71BBB2; /* Light blue-green link color */
+            }
+
+                footer a:hover {
+                    color: #497D74; /* Slightly darker green on hover */
+                }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        .card {
+            border: 1px solid #497D74; /* Muted green border for cards */
+            border-radius: 8px;
+        }
+
+        .card-header, .card-footer {
+            background-color: #497D74; /* Muted green for card header/footer */
+            color: white;
+        }
+
+        .card-body {
+            background-color: #FFF; /* White background for card content */
+        }
+
+        .card-text {
+            color: #27445D; /* Dark text color for card text */
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light">
             <div class="container">
+                <!-- Contoso University dropdown -->
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Contoso University</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -19,41 +97,47 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
+                        <!-- Contoso dropdown menu -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                University
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/About">About</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Students/Index">Students</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Courses/Index">Courses</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Students/Index">Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Courses/Index">Courses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Instructors/Index">Instructors</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Departments/Index">Departments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Enrollments/Index">Enrollments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/OfficeAsignment/Index">OfficeAsignment</a>
+                    </ul>
+
+                    <!-- Dropdown for Instructors, OfficeAssignment, Enrollments, Departments -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRight" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Faculty
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownRight">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Instructors/Index">Instructors</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/OfficeAsignment/Index">Office Assignment</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Enrollments/Index">Enrollments</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Departments/Index">Departments</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted">
         <div class="container">
-            &copy; 2021 - Contoso University - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2021 - Nejc Sever Mihelic - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
