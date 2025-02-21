@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,19 +20,44 @@ namespace ContosoUniversity.Pages.Enrollments
 
         public IActionResult OnGet()
         {
-        ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
-        ViewData["StudentID"] = new SelectList(_context.Students, "ID", "ID");
+            // Load Course Titles instead of CourseID
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title");
+
+            // Load Student Full Names instead of StudentID
+            ViewData["StudentID"] = new SelectList(
+                _context.Students.Select(s => new { s.ID, FullName = s.LastName + ", " + s.FirstMidName }),
+                "ID",
+                "FullName"
+            );
+
+            ViewData["Grade"] = new SelectList(new List<string>
+                {
+                  "F", "D", "C", "B", "A",
+                });
+
             return Page();
         }
 
         [BindProperty]
         public Enrollment Enrollment { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                // Ensure dropdowns are repopulated if the form submission fails
+                ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title");
+                ViewData["StudentID"] = new SelectList(
+                    _context.Students.Select(s => new { s.ID, FullName = s.LastName + ", " + s.FirstMidName }),
+                    "ID",
+                    "FullName"
+                );
+
+                ViewData["Grade"] = new SelectList(new List<string>
+                {
+                    "No Grade", "Fail", "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "100%"
+                });
+
                 return Page();
             }
 

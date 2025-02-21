@@ -25,7 +25,15 @@ namespace ContosoUniversity.Pages.Enrollments
         {
             Enrollment = await _context.Enrollments
                 .Include(e => e.Course)
-                .Include(e => e.Student).ToListAsync();
+                .Include(e => e.Student)
+                .Select(e => new Enrollment
+                {
+                    EnrollmentID = e.EnrollmentID,
+                    Grade = e.Grade,
+                    Course = new Course { Title = e.Course.Title }, // Load Course Title
+                    Student = new Student { FirstMidName = e.Student.FirstMidName, LastName = e.Student.LastName } // Load Student Name
+                })
+                .ToListAsync();
         }
     }
 }

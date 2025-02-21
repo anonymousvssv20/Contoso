@@ -60,7 +60,10 @@ namespace ContosoUniversity.Pages.Courses
             CurrentTitleFilter = searchTitle;
             CurrentCreditsFilter = searchCredits?.ToString();
 
-            IQueryable<Course> coursesIQ = _context.Courses.Include(c => c.Department).AsQueryable();
+            IQueryable<Course> coursesIQ = _context.Courses.
+                Include(c => c.Department)
+                .Include(c => c.Instructor)
+                .AsQueryable();
 
             if (!String.IsNullOrEmpty(searchTitle))
             {

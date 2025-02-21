@@ -15,15 +15,21 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Enrollment.CourseID" class="control-label"></label>
-                <select asp-for="Enrollment.CourseID" class ="form-control" asp-items="ViewBag.CourseID"></select>
+                <select asp-for="Enrollment.CourseID" class="form-control" asp-items="ViewBag.CourseID">
+                    <option value="">-- Select a Course --</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Enrollment.StudentID" class="control-label"></label>
-                <select asp-for="Enrollment.StudentID" class ="form-control" asp-items="ViewBag.StudentID"></select>
+                <select asp-for="Enrollment.StudentID" class="form-control" asp-items="ViewBag.StudentID">
+                    <option value="">-- Select a Student --</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Enrollment.Grade" class="control-label"></label>
-                <input asp-for="Enrollment.Grade" class="form-control" />
+                <select asp-for="Enrollment.Grade" class="form-control" asp-items="ViewBag.Grade">
+                    <option value="">-- Select a Grade --</option>
+                </select>
                 <span asp-validation-for="Enrollment.Grade" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -38,5 +44,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
