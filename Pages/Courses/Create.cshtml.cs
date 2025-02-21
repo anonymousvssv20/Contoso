@@ -24,6 +24,7 @@ namespace ContosoUniversity.Pages.Courses
         {
             Course = new Course();
             ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
+            ViewData["InstructorID"] = new SelectList(_context.Instructor, "ID", "FullName");
             return Page();
         }
 
@@ -36,11 +37,17 @@ namespace ContosoUniversity.Pages.Courses
             if (!ModelState.IsValid)
             {
                 ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
+                ViewData["InstructorID"] = new SelectList(_context.Instructor, "ID", "FullName");
                 return Page();
             }
 
             try
             {
+                var instructor = await _context.Instructor.FindAsync(Course.InstructorID);
+                if(instructor != null)
+                {
+                    Course.Instructor = instructor;
+                }
                 _context.Courses.Add(Course);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
@@ -49,6 +56,7 @@ namespace ContosoUniversity.Pages.Courses
             {
                 ModelState.AddModelError("", $"Error saving data: {ex.Message}");
                 ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "Name");
+                ViewData["InstructorID"] = new SelectList(_context.Instructor, "ID", "FullName");
                 return Page();
             }
         }

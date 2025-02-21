@@ -27,7 +27,7 @@
         <tr>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
-                   asp-route-currentFilter="@Model.CurrentFilter">
+                asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Instructors[0].LastName)
                 </a>
             </th>
@@ -36,7 +36,7 @@
             </th>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
-                   asp-route-currentFilter="@Model.CurrentFilter">
+                asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Instructors[0].HireDate)
                 </a>
             </th>
@@ -56,6 +56,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.HireDate)
                 </td>
+
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoUniversity.Models;
 using ContosoUniversity.Data;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ContosoUniversity.Pages.Students
 {
@@ -19,6 +20,8 @@ namespace ContosoUniversity.Pages.Students
 
         public IActionResult OnGet()
         {
+            Student = new Student();
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title");
             return Page();
         }
 
@@ -27,19 +30,15 @@ namespace ContosoUniversity.Pages.Students
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var emptyStudent = new Student();
-
-            if(await TryUpdateModelAsync<Student>(
-                emptyStudent,
-                "student",
-                s => s.FirstMidName, s=> s.LastName, s=> s.EnrollmentDate))
+            if (!ModelState.IsValid)
             {
-                _context.Students.Add(emptyStudent);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+                ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title");
+                return Page();
             }
 
-            return Page();
+            _context.Students.Add(Student);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
         }
     }
 }

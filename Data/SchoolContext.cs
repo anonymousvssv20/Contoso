@@ -27,8 +27,9 @@ namespace ContosoUniversity.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>().ToTable("Course")
-                .HasMany(c => c.Instructors)
-                .WithMany(i => i.Courses);
+                .HasOne(c => c.Instructor)
+                .WithMany(i => i.Courses)
+                .HasForeignKey(c => c.InstructorID);
             modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Instructor>().ToTable("Instructor");

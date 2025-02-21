@@ -25,7 +25,11 @@ namespace ContosoUniversity.Models
 
         public int DepartmentID { get; set; }
 
+        public int InstructorID { get; set; }
+
+        public int StudentID { get; set; }
         public Department? Department { get; set; }
+        public Instructor? Instructor { get; set; }
         public ICollection<Enrollment>? Enrollments { get; set; }
         public ICollection<Instructor>? Instructors { get; set; }
     }

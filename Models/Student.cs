@@ -35,6 +35,10 @@ namespace ContosoUniversity.Models
             }
         }
         public string? Secret { get; set; }
+
+        public int CourseID { get; set; }
+
+        public Course? Course { get; set; }
         public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

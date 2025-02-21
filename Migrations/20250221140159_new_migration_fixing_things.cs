@@ -5,7 +5,7 @@
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class added_office_asignment : Migration
+    public partial class new_migration_fixing_things : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

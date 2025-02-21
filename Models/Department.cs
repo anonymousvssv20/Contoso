@@ -18,7 +18,6 @@ namespace ContosoUniversity.Models
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
-
         public ICollection<Instructor>? instructors { get; set; }
     }
 }

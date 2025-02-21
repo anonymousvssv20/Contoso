@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class migration_initialize : Migration
+    public partial class ini_create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,22 +43,6 @@ namespace ContosoUniversity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    EnrollmentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Secret = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Student", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StudentVM",
                 columns: table => new
                 {
@@ -80,7 +64,9 @@ namespace ContosoUniversity.Migrations
                     CourseID = table.Column<int>(type: "INTEGER", nullable: false),
                     Title = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     Credits = table.Column<int>(type: "INTEGER", nullable: false),
-                    DepartmentID = table.Column<int>(type: "INTEGER", nullable: false)
+                    DepartmentID = table.Column<int>(type: "INTEGER", nullable: false),
+                    InstructorID = table.Column<int>(type: "INTEGER", nullable: false),
+                    StudentID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,16 +88,63 @@ namespace ContosoUniversity.Migrations
                     LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     HireDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CourseID = table.Column<int>(type: "INTEGER", nullable: true),
                     DepartmentID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Instructor", x => x.ID);
                     table.ForeignKey(
+                        name: "FK_Instructor_Course_CourseID",
+                        column: x => x.CourseID,
+                        principalTable: "Course",
+                        principalColumn: "CourseID");
+                    table.ForeignKey(
                         name: "FK_Instructor_Department_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Department",
                         principalColumn: "DepartmentID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Secret = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseID = table.Column<int>(type: "INTEGER", nullable: false),
+                    CourseID1 = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Student_Course_CourseID1",
+                        column: x => x.CourseID1,
+                        principalTable: "Course",
+                        principalColumn: "CourseID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfficeAssignments",
+                columns: table => new
+                {
+                    InstructorID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OfficeAssignments", x => x.InstructorID);
+                    table.ForeignKey(
+                        name: "FK_OfficeAssignments_Instructor_InstructorID",
+                        column: x => x.InstructorID,
+                        principalTable: "Instructor",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,57 +180,15 @@ namespace ContosoUniversity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "CourseInstructor",
-                columns: table => new
-                {
-                    CoursesCourseID = table.Column<int>(type: "INTEGER", nullable: false),
-                    InstructorsID = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseInstructor", x => new { x.CoursesCourseID, x.InstructorsID });
-                    table.ForeignKey(
-                        name: "FK_CourseInstructor_Course_CoursesCourseID",
-                        column: x => x.CoursesCourseID,
-                        principalTable: "Course",
-                        principalColumn: "CourseID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourseInstructor_Instructor_InstructorsID",
-                        column: x => x.InstructorsID,
-                        principalTable: "Instructor",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OfficeAssignments",
-                columns: table => new
-                {
-                    InstructorID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Location = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OfficeAssignments", x => x.InstructorID);
-                    table.ForeignKey(
-                        name: "FK_OfficeAssignments_Instructor_InstructorID",
-                        column: x => x.InstructorID,
-                        principalTable: "Instructor",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Course_DepartmentID",
                 table: "Course",
                 column: "DepartmentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseInstructor_InstructorsID",
-                table: "CourseInstructor",
-                column: "InstructorsID");
+                name: "IX_Course_InstructorID",
+                table: "Course",
+                column: "InstructorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollment_CourseID",
@@ -215,16 +206,43 @@ namespace ContosoUniversity.Migrations
                 column: "StudentVMID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Instructor_CourseID",
+                table: "Instructor",
+                column: "CourseID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Instructor_DepartmentID",
                 table: "Instructor",
                 column: "DepartmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_CourseID1",
+                table: "Student",
+                column: "CourseID1");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Course_Instructor_InstructorID",
+                table: "Course",
+                column: "InstructorID",
+                principalTable: "Instructor",
+                principalColumn: "ID",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "CourseInstructor");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Course_Department_DepartmentID",
+                table: "Course");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Instructor_Department_DepartmentID",
+                table: "Instructor");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Course_Instructor_InstructorID",
+                table: "Course");
 
             migrationBuilder.DropTable(
                 name: "CourseVM");
@@ -236,19 +254,19 @@ namespace ContosoUniversity.Migrations
                 name: "OfficeAssignments");
 
             migrationBuilder.DropTable(
-                name: "Course");
-
-            migrationBuilder.DropTable(
                 name: "StudentVM");
 
             migrationBuilder.DropTable(
                 name: "Student");
 
             migrationBuilder.DropTable(
+                name: "Department");
+
+            migrationBuilder.DropTable(
                 name: "Instructor");
 
             migrationBuilder.DropTable(
-                name: "Department");
+                name: "Course");
         }
     }
 }

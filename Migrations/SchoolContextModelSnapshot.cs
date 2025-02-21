@@ -28,6 +28,12 @@ namespace ContosoUniversity.Migrations
                     b.Property<int>("DepartmentID")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("InstructorID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
@@ -35,6 +41,8 @@ namespace ContosoUniversity.Migrations
                     b.HasKey("CourseID");
 
                     b.HasIndex("DepartmentID");
+
+                    b.HasIndex("InstructorID");
 
                     b.ToTable("Course", (string)null);
                 });
@@ -118,6 +126,9 @@ namespace ContosoUniversity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("CourseID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("DepartmentID")
                         .HasColumnType("INTEGER");
 
@@ -136,6 +147,8 @@ namespace ContosoUniversity.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CourseID");
 
                     b.HasIndex("DepartmentID");
 
@@ -162,6 +175,12 @@ namespace ContosoUniversity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CourseID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CourseID1")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("TEXT");
 
@@ -180,6 +199,8 @@ namespace ContosoUniversity.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CourseID1");
 
                     b.ToTable("Student", (string)null);
                 });
@@ -204,21 +225,6 @@ namespace ContosoUniversity.Migrations
                     b.ToTable("StudentVM");
                 });
 
-            modelBuilder.Entity("CourseInstructor", b =>
-                {
-                    b.Property<int>("CoursesCourseID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("InstructorsID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CoursesCourseID", "InstructorsID");
-
-                    b.HasIndex("InstructorsID");
-
-                    b.ToTable("CourseInstructor");
-                });
-
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>
                 {
                     b.HasOne("ContosoUniversity.Models.Department", "Department")
@@ -227,7 +233,15 @@ namespace ContosoUniversity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ContosoUniversity.Models.Instructor", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Department");
+
+                    b.Navigation("Instructor");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Enrollment", b =>
@@ -255,6 +269,10 @@ namespace ContosoUniversity.Migrations
 
             modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
                 {
+                    b.HasOne("ContosoUniversity.Models.Course", null)
+                        .WithMany("Instructors")
+                        .HasForeignKey("CourseID");
+
                     b.HasOne("ContosoUniversity.Models.Department", null)
                         .WithMany("instructors")
                         .HasForeignKey("DepartmentID");
@@ -271,24 +289,20 @@ namespace ContosoUniversity.Migrations
                     b.Navigation("Instructor");
                 });
 
-            modelBuilder.Entity("CourseInstructor", b =>
+            modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
                 {
-                    b.HasOne("ContosoUniversity.Models.Course", null)
+                    b.HasOne("ContosoUniversity.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CoursesCourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseID1");
 
-                    b.HasOne("ContosoUniversity.Models.Instructor", null)
-                        .WithMany()
-                        .HasForeignKey("InstructorsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>
                 {
                     b.Navigation("Enrollments");
+
+                    b.Navigation("Instructors");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Department", b =>
@@ -298,6 +312,8 @@ namespace ContosoUniversity.Migrations
 
             modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
                 {
+                    b.Navigation("Courses");
+
                     b.Navigation("OfficeAssignment");
                 });
 

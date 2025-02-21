@@ -5,7 +5,7 @@
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class possible_fix_question_mark : Migration
+    public partial class updated_students_i_hope : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
