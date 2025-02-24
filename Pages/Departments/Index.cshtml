@@ -1,5 +1,6 @@
 ﻿@page
 @model ContosoUniversity.Pages.Departments.IndexModel
+@using System.Text.Json;
 
 @{
     ViewData["Title"] = "Departments";
@@ -67,12 +68,22 @@
     .card-body {
         padding: 20px;
     }
+
+    /* CSS for the chart canvas */
+    #departmentChart {
+        width: 100% !important;
+        max-width: 600px;
+        height: 300px; 
+        margin: 0 auto;
+    }
 </style>
+
 <h1>Departments</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
 <form asp-page="./Index" method="get">
     <div class="form-actions no-color">
         <p>
@@ -89,19 +100,19 @@
         <tr>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
-                asp-route-currentFilter="@Model.CurrentFilter">
+                   asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Departments[0].Name)
                 </a>
             </th>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.BudgetSort"
-                asp-route-currentFilter="@Model.CurrentFilter">
+                   asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Departments[0].Budget)
                 </a>
             </th>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
-                asp-route-currentFilter="@Model.CurrentFilter">
+                   asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Departments[0].StartDate)
                 </a>
             </th>
@@ -150,3 +161,49 @@
    class="btn btn-primary @nextDisabled">
     Next
 </a>
+
+<canvas id="departmentChart" width="400" height="300"></canvas> <!-- Smaller size -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Get the department names and start dates from the Razor Page Model
+    var departmentNames = @Html.Raw(JsonSerializer.Serialize(Model.DepartmentNames)); // X-axis: Department names
+    var departmentStartDates = @Html.Raw(JsonSerializer.Serialize(Model.DepartmentStartDates)); // Y-axis: Start Dates
+
+    // Convert the department start dates to Unix timestamps (numeric values)
+    departmentStartDates = departmentStartDates.map(function(date) {
+        var d = new Date(date); // Create Date object
+        return d.getTime(); // Convert to Unix timestamp (milliseconds since epoch)
+    });
+
+    // Create a chart using Chart.js
+    var ctx = document.getElementById('departmentChart').getContext('2d');
+    var departmentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: departmentNames, // Department names
+            datasets: [{
+                label: 'Department Start Date',
+                data: departmentStartDates, // Unix timestamps
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', // Bar color
+                borderColor: 'rgba(75, 192, 192, 1)', // Border color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            // Convert Unix timestamp back to readable date format
+                            var date = new Date(value);
+                            return date.toISOString().split('T')[0]; // Show in "YYYY-MM-DD" format
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

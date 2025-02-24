@@ -25,6 +25,8 @@ namespace ContosoUniversity.Pages.Instructors
             Configuration = configuration;
         }
 
+        public List<int> TeachingYears { get; set; }
+        public List<int> TeachingCount { get; set; }
         public string NameSort { get; set; }
         public string DateSort { get; set; }
         public string CurrentFilter { get; set; }
@@ -105,6 +107,18 @@ namespace ContosoUniversity.Pages.Instructors
                     .ToListAsync();
                 InstructorData.Enrollments = enrollments;
             }
+
+            TeachingYears = await _context.Instructor
+                .GroupBy(s => s.HireDate.Year)
+                .OrderBy(g => g.Key)
+                .Select(g => g.Key)
+                .ToListAsync();
+
+            TeachingCount = await _context.Instructor
+                .GroupBy(s => s.HireDate.Year)
+                .OrderBy(g => g.Key)
+                .Select(g => g.Count())
+                .ToListAsync();
         }
     }
 }

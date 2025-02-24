@@ -1,56 +1,53 @@
 ﻿@page
 @model ContosoUniversity.Pages.Courses.IndexModel
+@using System.Text.Json;
 
 @{
     ViewData["Title"] = "Courses";
 }
 <style>
     body {
-        background-color: #EFE9D5; /* Light off-white background color */
+        background-color: #EFE9D5;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .card {
-        border: 2px solid #27445D; /* Deep blue-green border for the card */
+        border: 2px solid #27445D;
         border-radius: 8px;
         background-color: white;
     }
 
     .card-text {
-        color: #27445D; /* Deep blue-green text color */
+        color: #27445D;
     }
 
     .card-header, .card-footer {
-        background-color: #27445D; /* Deep blue-green background for header/footer */
+        background-color: #27445D;
         color: white;
         border-radius: 8px 8px 0 0;
     }
 
-        .card-header h5 {
-            pointer-events: none; /* Prevents the header from triggering the link click */
-        }
-
     .btn-primary {
-        background-color: #49D74; /* Light green button color */
+        background-color: #49D74;
         border-color: #49D74;
         color: white;
         border-radius: 5px;
         padding: 10px 20px;
     }
 
-        .btn-primary:hover {
-            background-color: #71BBB2; /* Hover state with lighter blue-green */
-            border-color: #71BBB2;
-        }
+    .btn-primary:hover {
+        background-color: #71BBB2;
+        border-color: #71BBB2;
+    }
 
     .stretched-link {
         color: #49D74;
         text-decoration: underline;
     }
 
-        .stretched-link:hover {
-            color: #27445D;
-        }
+    .stretched-link:hover {
+        color: #27445D;
+    }
 
     .row {
         margin-bottom: 20px;
@@ -66,6 +63,12 @@
 
     .card-body {
         padding: 20px;
+    }
+
+    #creditsPieChart {
+        max-width: 600px;
+        max-height: 400px;
+        margin: 20px auto;
     }
 </style>
 <h2>Courses</h2>
@@ -136,6 +139,7 @@
         }
     </tbody>
 </table>
+
 <a asp-page="./Index"
    asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.Courses.PageIndex - 1)"
@@ -150,3 +154,52 @@
    class="btn btn-primary @(Model.NextDisabled ? "disabled" : "")">
     Next
 </a>
+
+<canvas id="creditsPieChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('creditsPieChart').getContext('2d');
+    var creditsPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.Course.Select(c => c.Title).ToList())),
+            datasets: [{
+                label: 'Course Credits',
+                data: @Html.Raw(JsonSerializer.Serialize(Model.Course.Select(c => c.Credits).ToList())),
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 205, 86, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 205, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + ' Credits';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

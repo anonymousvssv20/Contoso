@@ -1,5 +1,6 @@
 ﻿@page "{id:int?}"
 @model ContosoUniversity.Pages.Instructors.IndexModel
+@using System.Text.Json;
 
 @{
     ViewData["Title"] = "Instructor";
@@ -66,6 +67,11 @@
 
     .card-body {
         padding: 20px;
+    }
+
+    #instructorChart {
+        max-width: 100%; /* Makes sure the chart doesn't overflow */
+        margin: 20px auto; /* Centers the chart */
     }
 </style>
 <h2>Instructors</h2>
@@ -194,3 +200,30 @@
    class="btn btn-primary @nextDisabled">
     Next
 </a>
+<canvas id="instructorChart" width="400" height="300"></canvas> <!-- Smaller size -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('instructorChart').getContext('2d');
+    var enrollmentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.TeachingYears)), // X-axis: Years
+            datasets: [{
+                label: 'Enrollments',
+                data: @Html.Raw(JsonSerializer.Serialize(Model.TeachingCount)), // Y-axis: Count
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

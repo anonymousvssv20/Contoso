@@ -21,7 +21,9 @@ namespace ContosoUniversity.Pages.Courses
             _context = context;
             Configuration = configuration;
         }
-
+        public List<string> CourseTitles { get; set; }
+        public List<int> CourseCredits { get; set; }
+        public List<int> TitleCounts { get; set; }
         public string TitleSort { get; set; }
         public string CreditsSort { get; set; }
         public string CurrentTitleFilter { get; set; }
@@ -101,6 +103,22 @@ namespace ContosoUniversity.Pages.Courses
 
             Course = await _context.Courses.Include(c => c.Department).AsNoTracking().ToListAsync();
 
+            CourseTitles = await _context.Courses
+                .GroupBy(c => c.Title)
+                .OrderBy(g => g.Key)
+                .Select(g => g.Key)
+                .ToListAsync();
+
+            TitleCounts = await _context.Courses
+                .GroupBy(c => c.Title)
+                .Select(g => g.Count())
+                .ToListAsync();
+
+            CourseCredits = await _context.Courses
+                .GroupBy(c => c.Credits)
+                .OrderBy(g => g.Key)
+                .Select(g => g.Key)
+                .ToListAsync();
         }
     }
 }

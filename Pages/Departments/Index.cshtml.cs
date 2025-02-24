@@ -22,6 +22,8 @@ namespace ContosoUniversity.Pages.Departments
             _configuration = configuration;
         }
 
+        public List<string> DepartmentNames { get; set; }
+        public List<string> DepartmentStartDates { get; set; }
         public string NameSort { get; set; }
         public string BudgetSort { get; set; }
         public string DateSort { get; set; }
@@ -82,6 +84,16 @@ namespace ContosoUniversity.Pages.Departments
 
             int pageSize = _configuration.GetValue<int>("PageSize", 10);
             Departments = await PaginatedList<Department>.CreateAsync(departmentsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+
+            DepartmentNames = await _context.Departments
+                .OrderBy(d => d.Name)
+                .Select(d => d.Name)
+                .ToListAsync();
+
+            DepartmentStartDates = await _context.Departments
+        .OrderBy(d => d.Name)
+        .Select(d => d.StartDate.ToString("yyyy-MM-dd")) // Format start date
+        .ToListAsync();
         }
     }
 }
