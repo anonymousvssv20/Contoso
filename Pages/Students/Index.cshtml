@@ -1,5 +1,6 @@
 ﻿@page
 @model ContosoUniversity.Pages.Students.IndexModel
+@using System.Text.Json;
 
 @{
     ViewData["Title"] = "Students";
@@ -26,10 +27,6 @@
         border-radius: 8px 8px 0 0;
     }
 
-        .card-header h5 {
-            pointer-events: none; /* Prevents the header from triggering the link click */
-        }
-
     .btn-primary {
         background-color: #49D74; /* Light green button color */
         border-color: #49D74;
@@ -41,15 +38,6 @@
         .btn-primary:hover {
             background-color: #71BBB2; /* Hover state with lighter blue-green */
             border-color: #71BBB2;
-        }
-
-    .stretched-link {
-        color: #49D74;
-        text-decoration: underline;
-    }
-
-        .stretched-link:hover {
-            color: #27445D;
         }
 
     .row {
@@ -67,7 +55,14 @@
     .card-body {
         padding: 20px;
     }
+
+    /* Styling for the Chart */
+    #enrollmentChart {
+        max-width: 100%; /* Makes sure the chart doesn't overflow */
+        margin: 20px auto; /* Centers the chart */
+    }
 </style>
+
 <h2>Students</h2>
 
 <p>
@@ -148,3 +143,34 @@
    class="btn btn-primary @nextDisabled">
     Next
 </a>
+<a asp-page="./Chart" class="btn btn-primary">
+    Chart
+</a>
+
+<canvas id="enrollmentChart" width="400" height="300"></canvas> <!-- Smaller size -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('enrollmentChart').getContext('2d');
+    var enrollmentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.EnrollmentYears)), // X-axis: Years
+            datasets: [{
+                label: 'Enrollments',
+                data: @Html.Raw(JsonSerializer.Serialize(Model.EnrollmentCounts)), // Y-axis: Count
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

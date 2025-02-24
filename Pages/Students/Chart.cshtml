@@ -1,0 +1,36 @@
+﻿@page
+@model ContosoUniversity.Pages.Students.ChartModel
+@using System.Text.Json;
+@{
+    ViewData["Title"] = "Student Enrollment Chart";
+}
+
+<h2>Student Enrollment Chart</h2>
+
+<canvas id="enrollmentChart" width="600" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('enrollmentChart').getContext('2d');
+    var enrollmentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.EnrollmentYears)), // X-axis: Years
+            datasets: [{
+                label: 'Enrollments',
+                data: @Html.Raw(JsonSerializer.Serialize(Model.EnrollmentCounts)), // Y-axis: Count
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

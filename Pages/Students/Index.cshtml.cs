@@ -24,6 +24,9 @@ namespace ContosoUniversity.Pages.Students
             Configuration = configuration;
         }
 
+        public List<int> EnrollmentYears { get; set; }
+        public List<int> EnrollmentCounts { get; set; }
+
         public string NameSort { get; set; }
         public string DateSort { get; set; }
         public string CurrentFilter { get; set; }
@@ -74,6 +77,18 @@ namespace ContosoUniversity.Pages.Students
             var pageSize = Configuration.GetValue("PageSize", 4);
             Students = await PaginatedList<Student>.CreateAsync(
                 studentsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+
+            EnrollmentYears = await _context.Students
+            .GroupBy(s => s.EnrollmentDate.Year)
+            .OrderBy(g => g.Key)
+            .Select(g => g.Key)
+            .ToListAsync();
+
+            EnrollmentCounts = await _context.Students
+                .GroupBy(s => s.EnrollmentDate.Year)
+                .OrderBy(g => g.Key)
+                .Select(g => g.Count())
+                .ToListAsync();
         }
     }
 }
