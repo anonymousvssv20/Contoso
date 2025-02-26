@@ -6,65 +6,6 @@
     ViewData["Title"] = "Courses";
 }
 <style>
-    body {
-        background-color: #EFE9D5;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .card {
-        border: 2px solid #27445D;
-        border-radius: 8px;
-        background-color: white;
-    }
-
-    .card-text {
-        color: #27445D;
-    }
-
-    .card-header, .card-footer {
-        background-color: #27445D;
-        color: white;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .btn-primary {
-        background-color: #49D74;
-        border-color: #49D74;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 20px;
-    }
-
-    .btn-primary:hover {
-        background-color: #71BBB2;
-        border-color: #71BBB2;
-    }
-
-    .stretched-link {
-        color: #49D74;
-        text-decoration: underline;
-    }
-
-    .stretched-link:hover {
-        color: #27445D;
-    }
-
-    .row {
-        margin-bottom: 20px;
-    }
-
-    .container {
-        max-width: 1200px;
-    }
-
-    .col-md-4 .card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
     #creditsPieChart {
         max-width: 600px;
         max-height: 400px;
@@ -159,14 +100,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Get the course titles and course IDs from the model and make them JavaScript arrays
+    var courseTitles = @Html.Raw(JsonSerializer.Serialize(Model.Courses.Select(c => c.Title).ToList()));
+    var courseIds = @Html.Raw(JsonSerializer.Serialize(Model.Courses.Select(c => c.CourseID).ToList()));
+
     var ctx = document.getElementById('creditsPieChart').getContext('2d');
     var creditsPieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: @Html.Raw(JsonSerializer.Serialize(Model.Course.Select(c => c.Title).ToList())),
+            labels: courseTitles, // Use the course titles array here
             datasets: [{
                 label: 'Course Credits',
-                data: @Html.Raw(JsonSerializer.Serialize(Model.Course.Select(c => c.Credits).ToList())),
+                data: @Html.Raw(JsonSerializer.Serialize(Model.Courses.Select(c => c.Credits).ToList())),
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.6)',
                     'rgba(255, 99, 132, 0.6)',
@@ -198,6 +143,15 @@
                             return tooltipItem.label + ': ' + tooltipItem.raw + ' Credits';
                         }
                     }
+                }
+            },
+            onClick: function(event, array) {
+                if (array.length > 0) {
+                    var index = array[0].index; // Get the index of the clicked segment
+                    var courseId = courseIds[index]; // Get the course ID based on the index
+
+                    // Redirect to the course details page with the CourseID in the URL
+                    window.location.href = '/Courses/EnrollmentCourses/' + courseId;
                 }
             }
         }

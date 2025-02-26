@@ -1,0 +1,47 @@
+﻿@page "{courseId:int}"
+@model ContosoUniversity.Pages.Courses.EnrollmentCoursesModel
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Course != null)
+{
+    <div class="course-details">
+        <div class="card">
+            <div class="card-header">
+                <h3>@Model.Course.Title</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Course ID:</strong> @Model.Course.CourseID</p>
+                <p><strong>Credits:</strong> @Model.Course.Credits</p>
+                <p><strong>Department:</strong> @Model.Course.Department?.Name ?? "No Department Info"</p>
+
+                <h4>Instructor:</h4>
+                <p>@Model.Course.Instructor?.FullName ?? "No Instructor Info"</p>
+
+                <hr />
+                <h5>Enrollment Information:</h5>
+                @if (Model.Course.Enrollments != null && Model.Course.Enrollments.Any())
+                {
+                    <ul>
+                        @foreach (var enrollment in Model.Course.Enrollments)
+                        {
+                            <li>@enrollment.Student?.FullName ?? "No Student Info"</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No students enrolled yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Course not found.</p>
+}

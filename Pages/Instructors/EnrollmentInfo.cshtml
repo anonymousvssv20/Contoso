@@ -1,0 +1,29 @@
+﻿@page "{teachingYear:int}"
+@model ContosoUniversity.Pages.Instructors.EnrollmentInfoModel
+@{
+    ViewData["Title"] = "Instructors Hired in " + @Model.Instructors.FirstOrDefault()?.HireDate.Year;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Instructors != null && Model.Instructors.Count > 0)
+{
+    <div class="instructor-list">
+        @foreach (var instructor in Model.Instructors)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4>@instructor.FullName</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Hire Year:</strong> @instructor.HireDate.Year</p>
+                    <!-- Add other instructor details as needed -->
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No instructors found for the selected year.</p>
+}

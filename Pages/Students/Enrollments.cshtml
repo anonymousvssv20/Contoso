@@ -1,0 +1,41 @@
+﻿@page
+@model ContosoUniversity.Pages.Students.EnrollmentsModel
+@{
+	ViewData["Title"] = "Student Enrollments";
+}
+<h2> Student Enrollments</h2>
+
+<form method="get">
+    <label for="year">Select Year:</label>
+    <input type="number" id="year" name="year" value="@Model.Year" required />
+    <button type="submit">Search</button>
+</form>
+
+@if (Model.Students.Any())
+{
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Enrollment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.ID</td>
+                    <td>@student.FirstMidName</td>
+                    <td>@student.LastName</td>
+                    <td>@student.EnrollmentDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No students found for the selected year.</p>
+}
