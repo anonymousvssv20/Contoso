@@ -1,4 +1,4 @@
-# Contoso University
+# Contoso
 
 This is a sample application for **Contoso University**, demonstrating a simple educational management system built using **ASP.NET Core** with **Razor Pages**, **Entity Framework Core**, and **SQL Server**. It provides functionalities such as managing courses, students, instructors, and enrollments.
 
