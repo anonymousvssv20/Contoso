@@ -12,6 +12,8 @@ namespace ContosoUniversity.Data
 {
     public class SchoolContext : DbContext
     {
+        public object Student;
+
         public SchoolContext (DbContextOptions<SchoolContext> options)
             : base(options)
         {

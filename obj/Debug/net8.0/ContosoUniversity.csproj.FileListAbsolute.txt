@@ -313,4 +313,17 @@ C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\ne
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.pdb
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ContosoUniversity.genruntimeconfig.cache
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\ref\ContosoUniversity.dll
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\appsettings.Development.json
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\appsettings.json
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.staticwebassets.runtime.json
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.staticwebassets.endpoints.json
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.exe
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.deps.json
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.runtimeconfig.json
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.dll
+C:\Users\Uporabnik\source\repos\ContosoUniversity\MyAppFunctions\bin\output\ContosoUniversity.pdb
+C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\bin\Debug\net8.0\Microsoft.Azure.Functions.Worker.Core.dll
+C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\bin\Debug\net8.0\Microsoft.Azure.Functions.Worker.Extensions.Abstractions.dll
+C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\bin\Debug\net8.0\Microsoft.Azure.Functions.Worker.Extensions.ServiceBus.dll
+C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\bin\Debug\net8.0\Microsoft.Azure.Functions.Worker.Extensions.Timer.dll
 C:\Users\Uporabnik\source\repos\ContosoUniversity\ContosoUniversity\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -1,0 +1,126 @@
+
+# Azure Functions C# Commands
+
+## 1. Initialize a New Function App in C#
+```bash
+func init <app_name> --worker-runtime dotnet
+```
+- Initializes a new Azure Function app with .NET runtime (C#). Replace `<app_name>` with the desired name.
+
+## 2. Create a New C# Function
+```bash
+func new --template "Http trigger" --name <function_name>
+```
+- Creates a new function with an HTTP trigger. Replace `<function_name>` with the desired function name. You can change the template to others like `Timer trigger`, `Blob trigger`, etc.
+
+## 3. Start the Function App Locally
+```bash
+func start
+```
+- Starts the function app locally. You can test your function locally before deploying to Azure.
+
+## 4. Publish the Function App to Azure
+```bash
+func azure functionapp publish <function_app_name>
+```
+- Deploys the local function app to Azure.
+
+## 5. Create an HTTP Trigger Function in C#
+```bash
+func new --template "Http trigger" --name <function_name> --language C#
+```
+- Creates a new HTTP trigger function with C# as the language.
+
+## 6. Create a Timer Trigger Function in C#
+```bash
+func new --template "Timer trigger" --name <function_name> --language C#
+```
+- Creates a new Timer trigger function with C#.
+
+## 7. Create a Blob Trigger Function in C#
+```bash
+func new --template "Blob trigger" --name <function_name> --language C#
+```
+- Creates a new Blob trigger function with C#.
+
+## 8. Create a Queue Trigger Function in C#
+```bash
+func new --template "Queue trigger" --name <function_name> --language C#
+```
+- Creates a new Queue trigger function with C#.
+
+## 9. Install Dependencies for C# Project
+```bash
+func extensions install
+```
+- Installs necessary dependencies for the function app (for triggers and bindings).
+
+## 10. Run the Function App Locally
+```bash
+func host start
+```
+- Starts the function host locally.
+
+## 11. Publish the Function App to Azure using ZIP Deployment
+```bash
+az functionapp deployment source config-zip --resource-group <resource_group> --name <function_app_name> --src <zip_file_path>
+```
+- Deploys the function app as a ZIP file to Azure.
+
+## 12. Set Application Settings in Azure
+```bash
+az functionapp config appsettings set --name <function_app_name> --resource-group <resource_group> --settings <key>=<value>
+```
+- Sets application settings (such as connection strings or environment variables) for the function app.
+
+## 13. View Logs of a Function App in Azure
+```bash
+func azure functionapp logstream <function_app_name>
+```
+- Streams logs from the Azure function app.
+
+## 14. Create an Azure Function App with C#
+```bash
+az functionapp create --name <function_app_name> --resource-group <resource_group> --plan <plan_name> --runtime dotnet --runtime-version <version> --storage-account <storage_account_name>
+```
+- Creates a new function app with .NET runtime in Azure.
+
+## 15. List Functions in an Azure Function App
+```bash
+az functionapp function list --name <function_app_name> --resource-group <resource_group>
+```
+- Lists the functions within a given function app in Azure.
+
+## 16. Deploy C# Function App from Visual Studio
+- **Publish Function to Azure**:
+    - Right-click the project in **Solution Explorer** → **Publish** → **Azure** → **Function App** → **Select or Create Function App** → **Publish**.
+
+## 17. Build a C# Function Locally
+```bash
+dotnet build
+```
+- Builds a C# Azure Function locally.
+
+## 18. Run Unit Tests for a C# Function
+```bash
+dotnet test
+```
+- Runs unit tests for the C# function project.
+
+## 19. Upgrade Azure Functions Core Tools
+```bash
+npm i -g azure-functions-core-tools@3 --unsafe-perm true
+```
+- Upgrades the Azure Functions Core Tools to the latest version for .NET.
+
+## 20. Delete a Function App
+```bash
+az functionapp delete --name <function_app_name> --resource-group <resource_group>
+```
+- Deletes a function app in Azure.
+
+## 21. View and Manage C# Functions with Azure CLI
+```bash
+az functionapp function show --name <function_app_name> --resource-group <resource_group> --function-name <function_name>
+```
+- Views the details of a specific function in a function app.
