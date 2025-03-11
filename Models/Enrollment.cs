@@ -22,5 +22,9 @@ namespace ContosoUniversity.Models
 
         public Course? Course { get; set; }
         public Student? Student { get; set; }
+
+        [StringLength(300, ErrorMessage = "Information cannot be longer than 300 characters.")]
+        [Display(Name = "Info")]
+        public string? Info { get; set; }
     }
 }

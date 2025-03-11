@@ -1,0 +1,35 @@
+﻿@page
+@model ContosoUniversity.Pages.Enrollments.GradeStatisticsModel
+@{
+    ViewData["Title"] = "Grade Statistics";
+}
+<h1>Grade Statistics</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Instructor</th>
+            <th>Highest Grade</th>
+            <th>Highest Grade Student</th>
+            <th>Lowest Grade</th>
+            <th>Lowest Grade Student</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CourseStats)
+        {
+            <tr>
+                <td>@item.CourseTitle</td>
+                <td>@item.InstructorName</td>
+                <td>@item.LowestGrade</td>
+                <td>@item.LowestGradeStudent</td>
+                <td>@item.HighestGrade</td>
+                <td>@item.HighestGradeStudent</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-page="Index" class="btn btn-secondary">Back to Enrollments</a>
+</p>

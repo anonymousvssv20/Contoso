@@ -1,0 +1,74 @@
+﻿@page
+@model ContosoUniversity.Pages.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Register</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Username">Username</label>
+        <input type="text" class="form-control" id="Username" name="Username" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password" name="Password" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ConfirmPassword">Confirm Password</label>
+        <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Role">Role</label>
+        <select class="form-control" id="Role" name="Role" required>
+            <option value="Student">Student</option>
+            <option value="Instructor">Instructor</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="FirstMidName">First Name</label>
+        <input type="text" class="form-control" id="FirstMidName" name="FirstMidName" required />
+    </div>
+
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" required />
+    </div>
+
+    <!-- Student-specific fields -->
+    <div class="form-group" id="studentInfo" style="display:none;">
+        <label for="StudentEnrollmentDate">Enrollment Date</label>
+        <input type="date" class="form-control" id="StudentEnrollmentDate" name="StudentEnrollmentDate" />
+    </div>
+
+    <!-- Instructor-specific fields -->
+    <div class="form-group" id="instructorInfo" style="display:none;">
+        <label for="InstructorHireDate">Hire Date</label>
+        <input type="date" class="form-control" id="InstructorHireDate" name="InstructorHireDate" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('Role').addEventListener('change', function () {
+            var role = this.value;
+            if (role === 'Student') {
+                document.getElementById('studentInfo').style.display = 'block';
+                document.getElementById('instructorInfo').style.display = 'none';
+            } else {
+                document.getElementById('studentInfo').style.display = 'none';
+                document.getElementById('instructorInfo').style.display = 'block';
+            }
+        });
+    </script>
+}

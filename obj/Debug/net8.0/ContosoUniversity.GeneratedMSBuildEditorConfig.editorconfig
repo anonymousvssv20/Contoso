@@ -32,6 +32,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/CoursesVM/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlc1ZNXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Courses/EnrollmentCourses.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlc1xFbnJvbGxtZW50Q291cnNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Courses/Grades.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlc1xHcmFkZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Courses/Index.cshtml]
@@ -112,6 +120,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW5yb2xsbWVudHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Enrollments/GradeStatistics.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW5yb2xsbWVudHNcR3JhZGVTdGF0aXN0aWNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Enrollments/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW5yb2xsbWVudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -148,6 +160,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/OfficeAsignment/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT2ZmaWNlQXNpZ25tZW50XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -170,6 +186,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Shared/_ValidationScriptsPartial.cshtml]
@@ -218,6 +238,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Students/Enrollments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudHNcRW5yb2xsbWVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Students/GradesAndPeriods.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudHNcR3JhZGVzQW5kUGVyaW9kcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Uporabnik/source/repos/ContosoUniversity/ContosoUniversity/Pages/Students/Index.cshtml]

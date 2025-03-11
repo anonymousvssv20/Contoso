@@ -79,6 +79,10 @@ namespace ContosoUniversity.Migrations
                     b.Property<int?>("Budget")
                         .HasColumnType("money");
 
+                    b.Property<string>("Info")
+                        .HasMaxLength(300)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
@@ -102,6 +106,10 @@ namespace ContosoUniversity.Migrations
 
                     b.Property<int?>("Grade")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Info")
+                        .HasMaxLength(300)
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("StudentID")
                         .HasColumnType("INTEGER");
@@ -139,6 +147,10 @@ namespace ContosoUniversity.Migrations
                         .HasColumnName("FirstName");
 
                     b.Property<DateTime>("HireDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Info")
+                        .HasMaxLength(300)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
@@ -190,6 +202,10 @@ namespace ContosoUniversity.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("FirstName");
 
+                    b.Property<string>("Info")
+                        .HasMaxLength(300)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -223,6 +239,41 @@ namespace ContosoUniversity.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("StudentVM");
+                });
+
+            modelBuilder.Entity("ContosoUniversity.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("InstructorID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("StudentID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserID");
+
+                    b.HasIndex("InstructorID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>
@@ -298,6 +349,21 @@ namespace ContosoUniversity.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("ContosoUniversity.Models.User", b =>
+                {
+                    b.HasOne("ContosoUniversity.Models.Instructor", "Instructor")
+                        .WithMany("Users")
+                        .HasForeignKey("InstructorID");
+
+                    b.HasOne("ContosoUniversity.Models.Student", "Student")
+                        .WithMany("Users")
+                        .HasForeignKey("StudentID");
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>
                 {
                     b.Navigation("Enrollments");
@@ -315,11 +381,15 @@ namespace ContosoUniversity.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("OfficeAssignment");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
                 {
                     b.Navigation("Enrollments");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.StudentVM", b =>

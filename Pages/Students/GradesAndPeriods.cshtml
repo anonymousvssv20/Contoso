@@ -1,0 +1,106 @@
+﻿@page
+@model ContosoUniversity.Pages.Students.GradesAndPeriodsModel
+
+@{
+    ViewData["Title"] = "Grades and Timetable";
+}
+
+<div class="container">
+    <h2 class="page-title">Grades and Timetable</h2>
+
+    <!-- Timetable Section -->
+    <div class="section">
+        <h3 class="section-title">Your Timetable</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entry in Model.Data.Timetable)
+                {
+                    <tr>
+                        <td>@entry.StartTime.ToString("hh:mm tt")</td>
+                        <td>@entry.EndTime.ToString("hh:mm tt")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Enrollments Section -->
+    <div class="section">
+        <h3 class="section-title">Your Enrollments</h3>
+        <ul class="enrollment-list">
+            @foreach (var enrollment in Model.Data.Enrollments)
+            {
+                <li class="enrollment-item">
+                    @enrollment.Course.Title
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<!-- Styling -->
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .page-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .table th, .table td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+    .enrollment-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .enrollment-item {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        margin: 8px 0;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 4px;
+    }
+
+        .enrollment-item:hover {
+            background-color: #e2e2e2;
+        }
+</style>

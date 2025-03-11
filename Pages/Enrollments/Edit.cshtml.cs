@@ -23,6 +23,10 @@ namespace ContosoUniversity.Pages.Enrollments
         [BindProperty]
         public Enrollment Enrollment { get; set; } = default!;
 
+        // Add properties for SelectLists for Course and Student
+        public SelectList CourseList { get; set; }
+        public SelectList StudentList { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -30,23 +34,32 @@ namespace ContosoUniversity.Pages.Enrollments
                 return NotFound();
             }
 
-            var enrollment =  await _context.Enrollments.FirstOrDefaultAsync(m => m.EnrollmentID == id);
+            var enrollment = await _context.Enrollments
+                .Include(e => e.Course) // Load Course data
+                .Include(e => e.Student) // Load Student data
+                .FirstOrDefaultAsync(m => m.EnrollmentID == id);
+
             if (enrollment == null)
             {
                 return NotFound();
             }
+
             Enrollment = enrollment;
-           ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
-           ViewData["StudentID"] = new SelectList(_context.Students, "ID", "ID");
+
+            // Populate the SelectLists with Course Titles and Student Full Names
+            CourseList = new SelectList(await _context.Courses.ToListAsync(), "CourseID", "Title");
+            StudentList = new SelectList(await _context.Students.ToListAsync(), "ID", "FullName");
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                // Repopulate the dropdowns in case of validation errors
+                CourseList = new SelectList(await _context.Courses.ToListAsync(), "CourseID", "Title");
+                StudentList = new SelectList(await _context.Students.ToListAsync(), "ID", "FullName");
                 return Page();
             }
 
@@ -76,4 +89,5 @@ namespace ContosoUniversity.Pages.Enrollments
             return _context.Enrollments.Any(e => e.EnrollmentID == id);
         }
     }
+
 }

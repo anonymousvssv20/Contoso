@@ -41,5 +41,11 @@ namespace ContosoUniversity.Models
 
         public ICollection<Course>? Courses { get; set; }
         public OfficeAssignment? OfficeAssignment { get; set; }
+
+        [StringLength(300, ErrorMessage = "Information cannot be longer than 300 characters.")]
+        [Display(Name = "Info")]
+        public string? Info { get; set; }
+
+        public ICollection<User>? Users { get; set; }
     }
 }

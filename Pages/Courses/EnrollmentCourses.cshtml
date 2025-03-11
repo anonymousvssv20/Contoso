@@ -17,10 +17,10 @@
             <div class="card-body">
                 <p><strong>Course ID:</strong> @Model.Course.CourseID</p>
                 <p><strong>Credits:</strong> @Model.Course.Credits</p>
-                <p><strong>Department:</strong> @Model.Course.Department?.Name ?? "No Department Info"</p>
+                <p><strong>Department:</strong> @Model.Course.Department?.Name</p>
 
                 <h4>Instructor:</h4>
-                <p>@Model.Course.Instructor?.FullName ?? "No Instructor Info"</p>
+                <p>@Model.Course.Instructor?.FullName</p>
 
                 <hr />
                 <h5>Enrollment Information:</h5>
@@ -29,7 +29,37 @@
                     <ul>
                         @foreach (var enrollment in Model.Course.Enrollments)
                         {
-                            <li>@enrollment.Student?.FullName ?? "No Student Info"</li>
+                            <li>
+                                <strong>@enrollment.Student?.FullName</strong><br />
+
+                                <!-- Display the grade -->
+                                <span><strong>Grade:</strong> @enrollment.Grade</span><br />
+
+                                @if (!string.IsNullOrEmpty(enrollment.Info))
+                                {
+                                    <span>
+                                        <!-- Custom grade text based on the grade value -->
+                                        @switch (enrollment.Info.ToUpper())
+                                        {
+                                            case "A":
+                                                <strong>(Excellent)</strong>
+                                                break;
+                                            case "B":
+                                                <strong>(Good)</strong>
+                                                break;
+                                            case "C":
+                                                <strong>(Average)</strong>
+                                                break;
+                                            case "D":
+                                                <strong>(Below Average)</strong>
+                                                break;
+                                            case "F":
+                                                <strong>(Fail)</strong>
+                                                break;
+                                        }
+                                    </span>
+                                }
+                            </li>
                         }
                     </ul>
                 }

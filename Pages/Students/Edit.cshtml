@@ -31,6 +31,11 @@
                 <span asp-validation-for="Student.EnrollmentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Student.Info"></label>
+                <textarea asp-for="Student.Info" class="form-control"></textarea>
+                <span asp-validation-for="Student.Info" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

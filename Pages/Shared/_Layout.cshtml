@@ -9,57 +9,56 @@
     <link rel="stylesheet" href="~/ContosoUniversity.styles.css" asp-append-version="true" />
     <style>
         body {
-            background-color: #EFE9D5; /* Light off-white background color */
+            background-color: #EFE9D5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         header {
             background-color: #27445D;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a small box shadow */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             color: #EFE9D5;
         }
 
         .navbar-brand {
-            color: #27445D; /* Dark text for brand */
+            color: #27445D;
         }
 
         .navbar-nav .nav-link {
-            color: #27445D; /* Dark text for nav links */
+            color: #27445D;
         }
 
             .navbar-nav .nav-link:hover {
-                color: #497D74; /* Muted green on hover */
+                color: #497D74;
             }
 
         .navbar-toggler-icon {
-            background-color: #497D74; /* Muted green toggle icon */
+            background-color: #497D74;
         }
 
-        /* Dropdown Menu */
         .dropdown-menu {
-            background-color: #EFE9D5; /* Match body background */
+            background-color: #EFE9D5;
         }
 
         .dropdown-item {
-            color: #27445D; /* Dark text for dropdown items */
+            color: #27445D;
         }
 
             .dropdown-item:hover {
-                color: #497D74; /* Muted green on hover */
-                background-color: #71BBB2; /* Light blue-green on hover */
+                color: #497D74;
+                background-color: #71BBB2;
             }
 
         footer {
-            background-color: #27445D; /* Keep the dark footer */
-            color: #EFE9D5; /* Light off-white color for footer text */
+            background-color: #27445D;
+            color: #EFE9D5;
         }
 
             footer a {
-                color: #71BBB2; /* Light blue-green link color */
+                color: #71BBB2;
             }
 
                 footer a:hover {
-                    color: #497D74; /* Slightly darker green on hover */
+                    color: #497D74;
                 }
 
         .container {
@@ -67,21 +66,27 @@
         }
 
         .card {
-            border: 1px solid #497D74; /* Muted green border for cards */
+            border: 1px solid #497D74;
             border-radius: 8px;
         }
 
         .card-header, .card-footer {
-            background-color: #497D74; /* Muted green for card header/footer */
+            background-color: #497D74;
             color: white;
         }
 
         .card-body {
-            background-color: #FFF; /* White background for card content */
+            background-color: #FFF;
         }
 
         .card-text {
-            color: #27445D; /* Dark text color for card text */
+            color: #27445D;
+        }
+
+        /* Disable pointer events on disabled items */
+        .disabled-link {
+            pointer-events: none;
+            color: #ccc;
         }
     </style>
 </head>
@@ -144,6 +149,15 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        window.onload = function() {
+            // Ensure dropdowns work correctly when the user is logged in
+            if (@User.Identity.IsAuthenticated) {
+                $('.dropdown-toggle').dropdown();
+            }
+        };
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

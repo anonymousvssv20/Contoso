@@ -19,5 +19,9 @@ namespace ContosoUniversity.Models
         public DateTime StartDate { get; set; }
 
         public ICollection<Instructor>? instructors { get; set; }
+
+        [StringLength(300, ErrorMessage = "Information cannot be longer than 300 characters.")]
+        [Display(Name = "Info")]
+        public string? Info { get; set; }
     }
 }

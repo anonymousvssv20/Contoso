@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContosoUniversity.Models
@@ -40,5 +41,12 @@ namespace ContosoUniversity.Models
 
         public Course? Course { get; set; }
         public ICollection<Enrollment>? Enrollments { get; set; }
+
+        [StringLength(300, ErrorMessage = "Information cannot be longer than 300 characters.")]
+        [Display(Name = "Info")]
+        public string? Info { get; set; }
+
+        public ICollection<User> Users { get; set; }
+
     }
 }

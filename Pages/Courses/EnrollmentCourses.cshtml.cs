@@ -24,11 +24,12 @@ namespace ContosoUniversity.Pages.Courses
         {
             // Get the course based on CourseID including its Instructor, Department, and Enrollments
             Course = _context.Courses
-                             .Include(c => c.Instructor)       // Include the instructor details
-                             .Include(c => c.Department)       // Include the department details
-                             .Include(c => c.Enrollments)      // Include the enrollments
-                                 .ThenInclude(e => e.Student)  // Include the student details in enrollments
-                             .FirstOrDefault(c => c.CourseID == courseId);
+                 .Include(c => c.Instructor)       // Include the instructor details
+                 .Include(c => c.Department)       // Include the department details
+                 .Include(c => c.Enrollments)      // Include the enrollments (this includes the grade automatically)
+                     .ThenInclude(e => e.Student)  // Include the student details in enrollments
+                 .FirstOrDefault(c => c.CourseID == courseId); // Get the course by ID
+
 
             // If no course is found, return a NotFound page
             if (Course == null)
