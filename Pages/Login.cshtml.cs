@@ -1,9 +1,14 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
-using System.Linq;
 
 namespace ContosoUniversity.Pages
 {
@@ -18,11 +23,9 @@ namespace ContosoUniversity.Pages
 
         [BindProperty]
         public string Username { get; set; }
-
         [BindProperty]
         public string Password { get; set; }
-
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
@@ -30,7 +33,6 @@ namespace ContosoUniversity.Pages
                 return Page();
             }
 
-            // Check if user exists in the database
             var user = _context.Users
                 .Include(u => u.Student)
                 .Include(u => u.Instructor)
@@ -42,36 +44,36 @@ namespace ContosoUniversity.Pages
                 return Page();
             }
 
-            // Debugging log to check if the user has a role and student/instructor relationships
-            System.Diagnostics.Debug.WriteLine($"User found: {user.Username}, Role: {user.Role}");
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.Username),
+        new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
 
-            // Store user information in the session
-            HttpContext.Session.SetInt32("UserId", user.UserID);
-            HttpContext.Session.SetString("UserRole", user.Role);
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties { IsPersistent = true };
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
+            // Debugging: Output the claims
+            System.Diagnostics.Debug.WriteLine("Claims: " + string.Join(", ", claims.Select(c => $"{c.Type}: {c.Value}")));
 
             if (user.Role == "Student")
             {
-                if (user.Student != null)
-                {
-                    // Log student ID for debugging
-                    System.Diagnostics.Debug.WriteLine($"Student ID: {user.Student.ID}");
-                    return RedirectToPage("/Students/GradesAndPeriods");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Student record not found.");
-                    return Page();
-                }
+                // Store the user info in session to track the logged-in student
+                HttpContext.Session.SetInt32("UserId", user.UserID);
+                HttpContext.Session.SetString("UserRole", user.Role);
+
+                return RedirectToPage("/Students/GradesAndPeriods");  // Redirect to GradesAndPeriods page for students
             }
             else if (user.Role == "Instructor")
             {
-                return RedirectToPage("/Instructors/Index");
+                return RedirectToPage("/Instructors/Index");  // Redirect to Instructor page
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid role.");
-                return Page();
-            }
+
+            ModelState.AddModelError(string.Empty, "Invalid Role.");
+            return Page();
         }
 
     }

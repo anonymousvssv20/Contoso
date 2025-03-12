@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Courses
 {
+
     public class CreateModel : PageModel
     {
         private readonly ContosoUniversity.Data.SchoolContext _context;

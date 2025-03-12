@@ -7,6 +7,7 @@ using ContosoUniversity.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using ContosoUniversity.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Students
 {

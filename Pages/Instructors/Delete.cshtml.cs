@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Instructors
 {
+
     public class DeleteModel : PageModel
     {
         private readonly ContosoUniversity.Data.SchoolContext _context;

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Instructors
 {
+
     public class DetailsModel : PageModel
     {
         private readonly ContosoUniversity.Data.SchoolContext _context;

@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 using ContosoUniversity.Models.SchoolViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Enrollments
 {
+
     public class GradeStatisticsModel : PageModel
     {
         private readonly SchoolContext _context;

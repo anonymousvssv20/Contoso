@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Enrollments
 {
+
     public class CreateModel : PageModel
     {
         private readonly ContosoUniversity.Data.SchoolContext _context;

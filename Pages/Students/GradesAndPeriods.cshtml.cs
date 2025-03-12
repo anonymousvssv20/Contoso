@@ -8,6 +8,7 @@ using ContosoUniversity.Helpers;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Students
 {

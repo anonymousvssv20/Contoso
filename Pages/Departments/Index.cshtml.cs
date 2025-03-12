@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
 using ContosoUniversity.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Departments
 {
+
     public class IndexModel : PageModel
     {
         private readonly SchoolContext _context;

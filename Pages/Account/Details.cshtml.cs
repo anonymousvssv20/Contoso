@@ -7,12 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
-using ContosoUniversity.Helpers;
-using Microsoft.AspNetCore.Authorization;
 
-namespace ContosoUniversity.Pages.Enrollments
+namespace ContosoUniversity.Pages.Account
 {
-
     public class DetailsModel : PageModel
     {
         private readonly ContosoUniversity.Data.SchoolContext _context;
@@ -22,7 +19,7 @@ namespace ContosoUniversity.Pages.Enrollments
             _context = context;
         }
 
-        public Enrollment Enrollment { get; set; } = default!;
+        public Student Student { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,14 +28,14 @@ namespace ContosoUniversity.Pages.Enrollments
                 return NotFound();
             }
 
-            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(m => m.EnrollmentID == id);
-            if (enrollment == null)
+            var student = await _context.Students.FirstOrDefaultAsync(m => m.ID == id);
+            if (student == null)
             {
                 return NotFound();
             }
             else
             {
-                Enrollment = enrollment;
+                Student = student;
             }
             return Page();
         }

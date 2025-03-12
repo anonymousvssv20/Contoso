@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ContosoUniversity.Data;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +22,22 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
 });
 
-// Authentication (commented out because if you're not using cookies for authentication, you can remove it)
-builder.Services.AddAuthentication("CookieAuthentication")
-    .AddCookie("CookieAuthentication", options =>
+// Authentication (cookies)
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        options.LoginPath = "/Login"; // Defines login path
-        options.AccessDeniedPath = "/AccessDenied"; // Defines access denied path
+        options.LoginPath = "/Login"; // Ensure this path exists
+        options.AccessDeniedPath = "/AccessDenied"; // Ensure this path exists
+        options.LogoutPath = "/Logout"; // Ensure this path exists
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
+
+// Authorization builder
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Instructor", policy => policy.RequireRole("Instructor"));
+    options.AddPolicy("Student", policy => policy.RequireRole("Student"));
+});
 
 // Build the app
 var app = builder.Build();
@@ -38,8 +48,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<SchoolContext>();
 
-    context.Database.Migrate(); // Comment this if you do not want auto migration
-    DbInitializer.Initialize(context); // Comment this if you do not want auto seeding
+    context.Database.Migrate(); // Ensure auto-migration works
+    DbInitializer.Initialize(context); // Ensure initial data is seeded
 }
 
 // Configure error handling for production environment
@@ -50,15 +60,16 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseDeveloperExceptionPage(); // You can comment this out for production
+    app.UseDeveloperExceptionPage(); // Enable during development
 }
 
 // Use session middleware (you need this for session management)
 app.UseSession();
 
-// Use authentication middleware (if you plan to use authentication with cookies, uncomment the authentication middleware line)
-// app.UseAuthentication(); 
+// Use authentication middleware
+app.UseAuthentication(); // Uncommented this line for authentication to work properly
 
+// Use routing, static files, and authorization middleware
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

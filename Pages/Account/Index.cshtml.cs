@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
-using Microsoft.AspNetCore.Authorization;
 
-namespace ContosoUniversity.Pages.OfficeAsignment
+namespace ContosoUniversity.Pages.Account
 {
-
     public class IndexModel : PageModel
     {
         private readonly ContosoUniversity.Data.SchoolContext _context;
@@ -21,12 +19,11 @@ namespace ContosoUniversity.Pages.OfficeAsignment
             _context = context;
         }
 
-        public IList<OfficeAssignment> OfficeAssignment { get;set; } = default!;
+        public IList<Student> Student { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            OfficeAssignment = await _context.OfficeAssignments
-                .Include(o => o.Instructor).ToListAsync();
+            Student = await _context.Students.ToListAsync();
         }
     }
 }

@@ -10,9 +10,11 @@ using ContosoUniversity.Data;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using ContosoUniversity.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Pages.Students
 {
+
     public class IndexModel : PageModel
     {
         private readonly SchoolContext _context;

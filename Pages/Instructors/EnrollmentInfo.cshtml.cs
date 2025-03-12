@@ -1,11 +1,13 @@
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
 
 namespace ContosoUniversity.Pages.Instructors
 {
+
     public class EnrollmentInfoModel : PageModel
     {
         private readonly SchoolContext _context;
