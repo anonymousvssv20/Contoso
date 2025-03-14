@@ -37,16 +37,17 @@
         }
 
         .dropdown-menu {
-            background-color: #EFE9D5;
+            background-color: black;
         }
 
         .dropdown-item {
             color: #27445D;
+            background-color: #black; /* Add background color to the dropdown items */
         }
 
             .dropdown-item:hover {
-                color: #497D74;
-                background-color: #71BBB2;
+                color: #497D74; /* Brighter hover text color */
+                background-color: #A5D5CA; /* A lighter, brighter background color on hover */
             }
 
         footer {
@@ -106,17 +107,33 @@
                         {
                             @if (User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Instructor"))
                             {
-                                <li class="nav-item"><a class="nav-link" asp-page="/Courses/Index">Courses</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-page="/Students/Index">Students</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-page="/Enrollments/Index">Enrollments</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-page="/OfficeAsignment/Index">Office Assignment</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-page="/Instructors/Index">Instructors</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-page="/Departments/Index">Departments</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="instructorDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Instructor
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="instructorDropdown">
+                                        <li><a class="dropdown-item" asp-page="/Courses/Index">Courses</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Courses/Teacher/Posts/Index">Teacher Posts</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Students/Index">Students</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Enrollments/Index">Enrollments</a></li>
+                                        <li><a class="dropdown-item" asp-page="/OfficeAsignment/Index">Office Assignment</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Instructors/Index">Instructors</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Departments/Index">Departments</a></li>
+                                    </ul>
+                                </li>
                             }
                             else if (User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Student"))
                             {
-                                <li class="nav-item"><a class="nav-link" asp-page="/Students/GradesAndPeriods">Grades & Periods</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-page="/Account/Index">Account Info</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Student
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="studentDropdown">
+                                        <li><a class="dropdown-item" asp-page="/Students/GradesAndPeriods">Grades & Periods</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Account/Index">Account Info</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Courses/Teacher/Posts/Index">Teacher Posts</a></li>
+                                    </ul>
+                                </li>
                             }
                             <form method="post" asp-page="/Logout" class="d-inline">
                                 <button type="submit" class="btn btn-link nav-link">Logout</button>
@@ -149,6 +166,11 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

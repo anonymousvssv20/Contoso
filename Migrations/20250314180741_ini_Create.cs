@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class ini_crate : Migration
+    public partial class ini_Create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -120,7 +120,8 @@ namespace ContosoUniversity.Migrations
                     Secret = table.Column<string>(type: "TEXT", nullable: true),
                     CourseID = table.Column<int>(type: "INTEGER", nullable: false),
                     CourseID1 = table.Column<int>(type: "INTEGER", nullable: true),
-                    Info = table.Column<string>(type: "TEXT", maxLength: 300, nullable: true)
+                    Info = table.Column<string>(type: "TEXT", maxLength: 300, nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,6 +145,34 @@ namespace ContosoUniversity.Migrations
                     table.PrimaryKey("PK_OfficeAssignments", x => x.InstructorID);
                     table.ForeignKey(
                         name: "FK_OfficeAssignments_Instructor_InstructorID",
+                        column: x => x.InstructorID,
+                        principalTable: "Instructor",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
+                columns: table => new
+                {
+                    PostID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    title = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    content = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseID = table.Column<int>(type: "INTEGER", nullable: false),
+                    InstructorID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post", x => x.PostID);
+                    table.ForeignKey(
+                        name: "FK_Post_Course_CourseID",
+                        column: x => x.CourseID,
+                        principalTable: "Course",
+                        principalColumn: "CourseID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Post_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
                         principalColumn: "ID",
@@ -185,7 +214,7 @@ namespace ContosoUniversity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     UserID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -198,19 +227,17 @@ namespace ContosoUniversity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.UserID);
                     table.ForeignKey(
-                        name: "FK_User_Instructor_InstructorID",
+                        name: "FK_Users_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_User_Student_StudentID",
+                        name: "FK_Users_Student_StudentID",
                         column: x => x.StudentID,
                         principalTable: "Student",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
@@ -249,18 +276,28 @@ namespace ContosoUniversity.Migrations
                 column: "DepartmentID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Post_CourseID",
+                table: "Post",
+                column: "CourseID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Post_InstructorID",
+                table: "Post",
+                column: "InstructorID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Student_CourseID1",
                 table: "Student",
                 column: "CourseID1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_InstructorID",
-                table: "User",
+                name: "IX_Users_InstructorID",
+                table: "Users",
                 column: "InstructorID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_StudentID",
-                table: "User",
+                name: "IX_Users_StudentID",
+                table: "Users",
                 column: "StudentID");
 
             migrationBuilder.AddForeignKey(
@@ -297,7 +334,10 @@ namespace ContosoUniversity.Migrations
                 name: "OfficeAssignments");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Post");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "StudentVM");

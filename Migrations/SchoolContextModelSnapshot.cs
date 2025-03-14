@@ -181,6 +181,36 @@ namespace ContosoUniversity.Migrations
                     b.ToTable("OfficeAssignments");
                 });
 
+            modelBuilder.Entity("ContosoUniversity.Models.Post", b =>
+                {
+                    b.Property<int>("PostID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CourseID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("InstructorID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PostID");
+
+                    b.HasIndex("CourseID");
+
+                    b.HasIndex("InstructorID");
+
+                    b.ToTable("Post");
+                });
+
             modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
                 {
                     b.Property<int>("ID")
@@ -213,6 +243,9 @@ namespace ContosoUniversity.Migrations
 
                     b.Property<string>("Secret")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
 
@@ -340,6 +373,25 @@ namespace ContosoUniversity.Migrations
                     b.Navigation("Instructor");
                 });
 
+            modelBuilder.Entity("ContosoUniversity.Models.Post", b =>
+                {
+                    b.HasOne("ContosoUniversity.Models.Course", "Course")
+                        .WithMany("Posts")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ContosoUniversity.Models.Instructor", "Instructor")
+                        .WithMany("Posts")
+                        .HasForeignKey("InstructorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Instructor");
+                });
+
             modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
                 {
                     b.HasOne("ContosoUniversity.Models.Course", "Course")
@@ -369,6 +421,8 @@ namespace ContosoUniversity.Migrations
                     b.Navigation("Enrollments");
 
                     b.Navigation("Instructors");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Department", b =>
@@ -381,6 +435,8 @@ namespace ContosoUniversity.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("OfficeAssignment");
+
+                    b.Navigation("Posts");
 
                     b.Navigation("Users");
                 });

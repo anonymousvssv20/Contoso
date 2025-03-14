@@ -32,5 +32,6 @@ namespace ContosoUniversity.Models
         public Instructor? Instructor { get; set; }
         public ICollection<Enrollment>? Enrollments { get; set; }
         public ICollection<Instructor>? Instructors { get; set; }
+        public ICollection<Post>? Posts { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace ContosoUniversity.Pages
         public string Username { get; set; }
         [BindProperty]
         public string Password { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
@@ -45,11 +46,11 @@ namespace ContosoUniversity.Pages
             }
 
             var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.Username),
-        new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
-        new Claim(ClaimTypes.Role, user.Role)
-    };
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),  // Ensure UserID is treated as an int and converted to string
+                new Claim(ClaimTypes.Role, user.Role)
+            };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties { IsPersistent = true };
@@ -62,7 +63,7 @@ namespace ContosoUniversity.Pages
             if (user.Role == "Student")
             {
                 // Store the user info in session to track the logged-in student
-                HttpContext.Session.SetInt32("UserId", user.UserID);
+                HttpContext.Session.SetInt32("UserId", user.UserID);  // Store the UserID as int in session
                 HttpContext.Session.SetString("UserRole", user.Role);
 
                 return RedirectToPage("/Students/GradesAndPeriods");  // Redirect to GradesAndPeriods page for students
@@ -75,6 +76,5 @@ namespace ContosoUniversity.Pages
             ModelState.AddModelError(string.Empty, "Invalid Role.");
             return Page();
         }
-
     }
 }

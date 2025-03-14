@@ -8,11 +8,11 @@ namespace ContosoUniversity.Pages
 {
     public class LogoutModel : PageModel
     {
-        public async Task<IActionResult> OnPostLogoutAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToPage("/Login");
+            return RedirectToPage("/Login"); // Redirect to Login page after logout
         }
-
     }
+
 }

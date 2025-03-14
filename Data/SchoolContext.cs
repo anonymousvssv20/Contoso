@@ -56,6 +56,7 @@ namespace ContosoUniversity.Data
                 .HasForeignKey(u => u.InstructorID);  // Foreign key in User table
         }
         public DbSet<ContosoUniversity.Models.StudentVM> StudentVM { get; set; } = default!;
+        public DbSet<ContosoUniversity.Models.Post> Post { get; set; } = default!;
         //public DbSet<ContosoUniversity.Models.Student> Student { get; set; } = default!;
     }
 }

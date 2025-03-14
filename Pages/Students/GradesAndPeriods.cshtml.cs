@@ -60,6 +60,7 @@ namespace ContosoUniversity.Pages.Students
 
             Data = new StudentGradesViewModel
             {
+                Username = User.Identity.Name,
                 Timetable = GenerateTimeTable(),
                 Enrollments = enrollments
             };
@@ -95,6 +96,7 @@ namespace ContosoUniversity.Pages.Students
         {
             public List<TimetableEntry>? Timetable { get; set; }
             public List<Enrollment>? Enrollments { get; set; }
+            public string? Username { get; internal set; }
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿@page
+@model ContosoUniversity.Pages.Courses.Teacher.Posts.IndexModel
+
+@{
+    ViewData["Title"] = "Course Posts";
+}
+
+<h1>Course Posts</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-success">Create New</a>
+</p>
+
+<!-- Display the posts table only if there are posts -->
+@if (Model.Post.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model.Post)
+            {
+                <tr>
+                    <td>@post.Title</td> <!-- Corrected to match the correct property name -->
+                    <td>@post.Content</td> <!-- Corrected to match the correct property name -->
+                    <td>No Actions untill I add comments</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <!-- If no posts are available for this instructor, display a message -->
+    <p>No posts available for this instructor.</p>
+}
