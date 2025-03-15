@@ -30,16 +30,29 @@ namespace ContosoUniversity.Pages.Courses.Teacher.Posts
                 return NotFound();
             }
 
-            var post =  await _context.Post.FirstOrDefaultAsync(m => m.PostID == id);
+            var post = await _context.Post.FirstOrDefaultAsync(m => m.PostID == id);
             if (post == null)
             {
                 return NotFound();
             }
+
             Post = post;
-           ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
-           ViewData["InstructorID"] = new SelectList(_context.Instructor, "ID", "FirstMidName");
+
+            // Change to display Course Title in the dropdown
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title", Post.CourseID);
+
+            // Assuming you want to display instructor names with instructor ID
+            ViewData["InstructorID"] = new SelectList(_context.Users
+                .Where(u => u.Role == "Instructor") // Fetch only instructors
+                .Select(u => new SelectListItem
+                {
+                    Value = u.UserID.ToString(),
+                    Text = u.Username // You can use a full name or username here
+                }).ToList(), "Value", "Text", Post.UserID);
+
             return Page();
         }
+
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.

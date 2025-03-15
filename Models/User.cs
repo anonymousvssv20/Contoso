@@ -27,5 +27,6 @@ namespace ContosoUniversity.Models
 
         public int? InstructorID { get; set; }
         public Instructor Instructor { get; set; }
+        public string? Id { get; internal set; }
     }
 }

@@ -11,14 +11,44 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20250314185142_softy_fucking_dumb_upper_lower_case_bs")]
-    partial class softy_fucking_dumb_upper_lower_case_bs
+    [Migration("20250315151526_initial_create")]
+    partial class initial_create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.2");
+
+            modelBuilder.Entity("ContosoUniversity.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PostID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserID1")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CommentID");
+
+                    b.HasIndex("PostID");
+
+                    b.HasIndex("UserID1");
+
+                    b.ToTable("Comment");
+                });
 
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>
                 {
@@ -197,7 +227,7 @@ namespace ContosoUniversity.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("InstructorID")
+                    b.Property<int?>("InstructorID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
@@ -205,11 +235,16 @@ namespace ContosoUniversity.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("PostID");
 
                     b.HasIndex("CourseID");
 
                     b.HasIndex("InstructorID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Post");
                 });
@@ -283,6 +318,9 @@ namespace ContosoUniversity.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("InstructorID")
                         .HasColumnType("INTEGER");
 
@@ -310,6 +348,25 @@ namespace ContosoUniversity.Migrations
                     b.HasIndex("StudentID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ContosoUniversity.Models.Comment", b =>
+                {
+                    b.HasOne("ContosoUniversity.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ContosoUniversity.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Course", b =>
@@ -384,15 +441,19 @@ namespace ContosoUniversity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ContosoUniversity.Models.Instructor", "Instructor")
+                    b.HasOne("ContosoUniversity.Models.Instructor", null)
                         .WithMany("Posts")
-                        .HasForeignKey("InstructorID")
+                        .HasForeignKey("InstructorID");
+
+                    b.HasOne("ContosoUniversity.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Course");
 
-                    b.Navigation("Instructor");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.Student", b =>

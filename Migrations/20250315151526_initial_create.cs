@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class ini_Create : Migration
+    public partial class initial_create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,6 +56,22 @@ namespace ContosoUniversity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudentVM", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    CommentID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CommentText = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    PostID = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserID = table.Column<string>(type: "TEXT", nullable: false),
+                    UserID1 = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.CommentID);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,7 +137,7 @@ namespace ContosoUniversity.Migrations
                     CourseID = table.Column<int>(type: "INTEGER", nullable: false),
                     CourseID1 = table.Column<int>(type: "INTEGER", nullable: true),
                     Info = table.Column<string>(type: "TEXT", maxLength: 300, nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -145,34 +161,6 @@ namespace ContosoUniversity.Migrations
                     table.PrimaryKey("PK_OfficeAssignments", x => x.InstructorID);
                     table.ForeignKey(
                         name: "FK_OfficeAssignments_Instructor_InstructorID",
-                        column: x => x.InstructorID,
-                        principalTable: "Instructor",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Post",
-                columns: table => new
-                {
-                    PostID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    title = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    content = table.Column<string>(type: "TEXT", nullable: false),
-                    CourseID = table.Column<int>(type: "INTEGER", nullable: false),
-                    InstructorID = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Post", x => x.PostID);
-                    table.ForeignKey(
-                        name: "FK_Post_Course_CourseID",
-                        column: x => x.CourseID,
-                        principalTable: "Course",
-                        principalColumn: "CourseID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Post_Instructor_InstructorID",
                         column: x => x.InstructorID,
                         principalTable: "Instructor",
                         principalColumn: "ID",
@@ -223,7 +211,8 @@ namespace ContosoUniversity.Migrations
                     Password = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Role = table.Column<string>(type: "TEXT", nullable: false),
                     StudentID = table.Column<int>(type: "INTEGER", nullable: true),
-                    InstructorID = table.Column<int>(type: "INTEGER", nullable: true)
+                    InstructorID = table.Column<int>(type: "INTEGER", nullable: true),
+                    Id = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -239,6 +228,50 @@ namespace ContosoUniversity.Migrations
                         principalTable: "Student",
                         principalColumn: "ID");
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
+                columns: table => new
+                {
+                    PostID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Content = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseID = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false),
+                    InstructorID = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post", x => x.PostID);
+                    table.ForeignKey(
+                        name: "FK_Post_Course_CourseID",
+                        column: x => x.CourseID,
+                        principalTable: "Course",
+                        principalColumn: "CourseID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Post_Instructor_InstructorID",
+                        column: x => x.InstructorID,
+                        principalTable: "Instructor",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Post_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_PostID",
+                table: "Comment",
+                column: "PostID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_UserID1",
+                table: "Comment",
+                column: "UserID1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Course_DepartmentID",
@@ -286,6 +319,11 @@ namespace ContosoUniversity.Migrations
                 column: "InstructorID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Post_UserID",
+                table: "Post",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Student_CourseID1",
                 table: "Student",
                 column: "CourseID1");
@@ -299,6 +337,22 @@ namespace ContosoUniversity.Migrations
                 name: "IX_Users_StudentID",
                 table: "Users",
                 column: "StudentID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Comment_Post_PostID",
+                table: "Comment",
+                column: "PostID",
+                principalTable: "Post",
+                principalColumn: "PostID",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Comment_Users_UserID1",
+                table: "Comment",
+                column: "UserID1",
+                principalTable: "Users",
+                principalColumn: "UserID",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Course_Instructor_InstructorID",
@@ -325,6 +379,9 @@ namespace ContosoUniversity.Migrations
                 table: "Course");
 
             migrationBuilder.DropTable(
+                name: "Comment");
+
+            migrationBuilder.DropTable(
                 name: "CourseVM");
 
             migrationBuilder.DropTable(
@@ -337,10 +394,10 @@ namespace ContosoUniversity.Migrations
                 name: "Post");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "StudentVM");
 
             migrationBuilder.DropTable(
-                name: "StudentVM");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Student");

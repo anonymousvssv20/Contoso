@@ -18,7 +18,7 @@ namespace ContosoUniversity.Models
         public int CourseID { get; set; }
         public Course? Course { get; set; }
 
-        public int InstructorID { get; set; }
-        public Instructor? Instructor { get; set; }
+        public int UserID { get; set; }
+        public User? User { get; set; }
     }
 }

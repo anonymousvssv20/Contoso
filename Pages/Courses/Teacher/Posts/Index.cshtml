@@ -5,37 +5,49 @@
     ViewData["Title"] = "Course Posts";
 }
 
-<h1>Course Posts</h1>
+<h1 class="text-center mb-4">Course Posts</h1>
 
-<p>
-    <a asp-page="Create" class="btn btn-success">Create New</a>
+<p class="mb-4">
+    <a asp-page="Create" class="btn btn-success">Create New Post</a>
 </p>
 
 <!-- Display the posts table only if there are posts -->
 @if (Model.Post.Any())
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var post in Model.Post)
-            {
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@post.Title</td> <!-- Corrected to match the correct property name -->
-                    <td>@post.Content</td> <!-- Corrected to match the correct property name -->
-                    <td>No Actions untill I add comments</td>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var post in Model.Post)
+                {
+                    <tr>
+                        <td>@post.Title</td>
+                        <td>@post.Content</td>
+                        <td>
+                            @if (Model.IsInstructor)
+                            {
+                                <!-- Display actions (Edit, Delete) if the current user is an instructor -->
+                                <div class="btn-group" role="group" aria-label="Actions">
+                                    <a asp-page="./Edit" asp-route-id="@post.PostID" class="btn btn-primary btn-sm">Edit</a>
+                                    <a asp-page="./Delete" asp-route-id="@post.PostID" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            }
+                            <!-- Link to Comments page -->
+                            <a asp-page="/Courses/Teacher/Comments/Index" asp-route-postId="@post.PostID" class="btn btn-info btn-sm mt-2">View Comments</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <!-- If no posts are available for this instructor, display a message -->
-    <p>No posts available for this instructor.</p>
+    <p class="text-center">No posts available.</p>
 }

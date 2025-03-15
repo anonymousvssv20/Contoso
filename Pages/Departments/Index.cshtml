@@ -82,9 +82,9 @@
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.DepartmentID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.DepartmentID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.DepartmentID">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.DepartmentID" class="btn btn-primary">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.DepartmentID" class="btn btn-info">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.DepartmentID" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

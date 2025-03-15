@@ -64,10 +64,10 @@
                 </td>
 
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a> |
-                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a>
+                    <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-secondary">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-info">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a> |
+                    <a asp-page="./Index" asp-route-id="@item.ID" class="btn btn-primary">Select</a>
                 </td>
             </tr>
         }
@@ -90,7 +90,7 @@
             string selectedRow = item.CourseID == Model.CourseID ? "table-success" : "";
             <tr class="@selectedRow">
                 <td>
-                    <a asp-page="./Index" asp-route-courseID="@item.CourseID">Select</a>
+                    <a asp-page="./Index" asp-route-courseID="@item.CourseID" class="btn btn-primary">Select</a>
                 </td>
                 <td>@item.CourseID</td>
                 <td>@item.Title</td>

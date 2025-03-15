@@ -72,9 +72,9 @@
                     @Html.DisplayFor(modelItem => item.Instructor.FullName)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.CourseID" class="btn btn-primary">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CourseID" class="btn btn-info">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CourseID" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
@@ -95,7 +95,7 @@
    class="btn btn-primary @(Model.NextDisabled ? "disabled" : "")">
     Next
 </a>
-<a asp-page="Grades" class="button-link">Preview Grades</a>
+<a asp-page="Grades" class="btn btn-info">Preview Grades</a>
 
 
 <canvas id="creditsPieChart"></canvas>

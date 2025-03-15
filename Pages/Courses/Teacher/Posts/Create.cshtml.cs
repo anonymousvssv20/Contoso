@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -24,15 +23,25 @@ namespace ContosoUniversity.Pages.Courses.Teacher.Posts
         {
             // Retrieve the logged-in user's ID (InstructorID)
             var instructorIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // Optionally, set the ID as ViewData to be displayed in the view
             ViewData["UserId"] = instructorIdString;
 
-            // ViewData for the CourseID SelectList
-            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
+            // ViewData for the CourseID SelectList, displaying the Course Title
+            ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Title");
+
+            // Fetch users with the "Instructor" role and pass them to the ViewData
+            var instructors = _context.Users
+                .Where(u => u.Role == "Instructor") // Filter by Role == "Instructor"
+                .Select(u => new SelectListItem
+                {
+                    Value = u.UserID.ToString(),
+                    Text = u.Username // Assuming 'Username' or 'FullName' for the display name
+                }).ToList();
+
+            ViewData["InstructorID"] = new SelectList(instructors, "Value", "Text");
 
             return Page();
         }
+
 
         [BindProperty]
         public Post Post { get; set; } = default!;
@@ -47,7 +56,7 @@ namespace ContosoUniversity.Pages.Courses.Teacher.Posts
             var instructorIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (int.TryParse(instructorIdString, out int instructorId))
             {
-                Post.InstructorID = instructorId;
+                Post.UserID = instructorId;
             }
 
             _context.Post.Add(Post);
@@ -56,5 +65,4 @@ namespace ContosoUniversity.Pages.Courses.Teacher.Posts
             return RedirectToPage("./Index");
         }
     }
-
 }

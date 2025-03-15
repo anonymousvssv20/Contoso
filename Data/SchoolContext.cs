@@ -54,9 +54,13 @@ namespace ContosoUniversity.Data
                 .HasOne(u => u.Instructor)  // A user has one instructor
                 .WithMany(i => i.Users)
                 .HasForeignKey(u => u.InstructorID);  // Foreign key in User table
+
+            modelBuilder.Entity<Post>();
+            modelBuilder.Entity<Comment>();
         }
         public DbSet<ContosoUniversity.Models.StudentVM> StudentVM { get; set; } = default!;
         public DbSet<ContosoUniversity.Models.Post> Post { get; set; } = default!;
+        public DbSet<ContosoUniversity.Models.Comment> Comment { get; set; } = default!;
         //public DbSet<ContosoUniversity.Models.Student> Student { get; set; } = default!;
     }
 }

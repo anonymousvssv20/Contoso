@@ -1,0 +1,53 @@
+﻿@page
+@model ContosoUniversity.Pages.Courses.Teacher.Comments.IndexModel
+
+@{
+    ViewData["Title"] = "Post Comments";
+}
+
+<h1 class="text-center mb-4">Post Comments</h1>
+
+<p class="mb-4">
+    <a asp-page="Create" class="btn btn-success">Create New Comment</a>
+</p>
+
+@if (Model.Comment.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Comment Text</th>
+                    <th>Post</th>
+                    @if (Model.IsInstructor)
+                    {
+                        <th>Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comment in Model.Comment)
+                {
+                    <tr>
+                        <td>@comment.CommentText</td>
+                        <td>@comment.Post?.Title</td> @* Display Post Title instead of Post object *@
+
+                        @if (Model.IsInstructor)
+                        {
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Actions">
+                                    <a asp-page="./Edit" asp-route-id="@comment.CommentID" class="btn btn-primary">Edit</a>
+                                    <a asp-page="./Delete" asp-route-id="@comment.CommentID" class="btn btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center text-muted">No comments found.</p>
+}

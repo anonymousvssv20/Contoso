@@ -32,9 +32,9 @@
                 @Html.DisplayFor(modelItem => item.Instructor.FirstMidName)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.InstructorID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.InstructorID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.InstructorID">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.InstructorID" class="btn btn-primary">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.InstructorID" class="btn btn-info">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.InstructorID" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
